@@ -1,0 +1,3 @@
+rootProject.name = 'zymancer_native'
+
+include ':app'
