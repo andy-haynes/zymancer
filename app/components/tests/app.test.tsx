@@ -1,9 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import App, { routes } from './app';
+
+import App from '../app';
 
 describe('App', () => {
-  const wrapper = shallow<App>(<App />);
+  const wrapper = shallow(<App />);
 
   describe('rendering', () => {
     it('should render a <View />', () => {
