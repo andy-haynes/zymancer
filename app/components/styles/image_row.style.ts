@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+import { getWidth } from '../../utils/dimensions';
+
 export default StyleSheet.create({
   imageBox: {
     marginTop: 1,
@@ -18,7 +20,7 @@ export default StyleSheet.create({
   },
   imageRow: {
     height: 125,
-    width: 380,
+    width: getWidth(),
   },
   labelText: {
     color: '#ddd',
