@@ -5,6 +5,9 @@ export type ImageNavRoute = {
 };
 
 export const routes = [{
+  image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/DuckfootbeerflightJune2016.JPG',
+  label: 'Recipes',
+}, {
   image: 'https://cdn.pixabay.com/photo/2016/03/21/23/36/brewery-1271858_1280.jpg',
   label: 'Brew',
 }, {
@@ -13,9 +16,6 @@ export const routes = [{
 }, {
   image: 'https://c.pxhere.com/photos/8c/9b/alcohol_barrel_beer_brewery_business_containers_factory_industry-1522811.jpg!d',
   label: 'Packaging',
-}, {
-  image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/DuckfootbeerflightJune2016.JPG',
-  label: 'Recipes',
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/WortHydrometer.JPG',
   label: 'Tools',
