@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { ImageNavRoute } from '../constants/routes';
 
@@ -11,7 +11,12 @@ interface Props {
 
 export default function ImageRow({ navOption }: Props) {
   return (
-    <View key={navOption.label} style={styles.row}>
+    <TouchableOpacity
+      activeOpacity={0.6}
+      delayPressIn={80}
+      key={navOption.label}
+      style={styles.row}
+    >
       <View style={styles.imageBox}>
         <Image
           style={styles.imageRow}
@@ -23,6 +28,6 @@ export default function ImageRow({ navOption }: Props) {
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
