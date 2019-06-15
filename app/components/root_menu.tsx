@@ -1,11 +1,11 @@
 import React from 'react';
-import { ScrollView , View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { ImageNavRoute, routes } from '../constants/routes';
-import styles from './styles/app.style';
 import ImageRow from './image_row';
+import styles from './styles/root_menu.style';
 
-export default function App() {
+export default function RootMenu() {
   return (
     <ScrollView>
       <View style={styles.container}>

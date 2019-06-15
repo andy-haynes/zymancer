@@ -1,10 +1,10 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 
-import App from '../app';
+import RootMenu from '../root_menu';
 
-describe('App', () => {
-  const wrapper = shallow(<App />);
+describe('RootMenu', () => {
+  const wrapper = shallow(<RootMenu />);
 
   describe('rendering', () => {
     it('should render a <View />', () => {

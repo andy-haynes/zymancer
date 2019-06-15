@@ -15,7 +15,7 @@ export default StyleSheet.create({
     paddingRight: 8,
     paddingVertical: 8,
     position: 'absolute',
-    right: 0,
+    right: -1,
     width: 120,
   },
   imageRow: {
