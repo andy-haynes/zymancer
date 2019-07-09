@@ -1,12 +1,12 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 
 import NFCMonitor from './nfc_monitor';
+import Container from '../core/container';
 
 export default function Equipment() {
   return (
-    <ScrollView>
+    <Container>
       <NFCMonitor />
-    </ScrollView>
+    </Container>
   );
 }

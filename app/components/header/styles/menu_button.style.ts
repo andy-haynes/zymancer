@@ -1,11 +1,15 @@
 import { StyleSheet } from 'react-native';
 
+import Theme from '../../../theme';
+
+const { Colors, Font } = Theme;
+
 export default StyleSheet.create({
   container: {
-    color: 'black',
+    color: Colors.black,
     marginRight: 12,
   },
   text: {
-    fontSize: 16,
+    fontSize: Font.size.medium,
   },
 });
