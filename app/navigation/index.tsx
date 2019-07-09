@@ -5,16 +5,10 @@ import {
 } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import { ScreenName } from '../constants/navigation';
-import Screen from '../screens';
 import NavigationService from '../services/navigation';
+import screens from './screens';
 
-const createNavigator = () =>
-  createStackNavigator({
-    [ScreenName.Root]: Screen.Root,
-    [ScreenName.Recipes]: Screen.Recipes,
-    [ScreenName.Equipment]: Screen.Equipment,
-  });
+const createNavigator = () => createStackNavigator(screens);
 
 const appContainerRef = (navRef: NavigationContainerComponent) =>
   NavigationService.setTopLevelNavigator(navRef);
