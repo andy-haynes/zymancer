@@ -13,7 +13,7 @@ const createNavigator = () => createStackNavigator(screens);
 const appContainerRef = (navRef: NavigationContainerComponent) =>
   NavigationService.setTopLevelNavigator(navRef);
 
-export function AppContainer(/* props: NavigationProps */) {
+export function AppContainer() {
   // tslint:disable-next-line:variable-name
   const AppNavigationContainer = createAppContainer(createNavigator());
 
