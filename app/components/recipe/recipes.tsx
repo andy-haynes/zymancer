@@ -1,32 +1,27 @@
-import React, { useState } from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
 
+import { mockRecipe } from '../../constants/mock_data';
 import { Recipe } from '../../types/recipe';
-import srm from '../../constants/srm';
 import Container from '../core/container';
-import Fermentables from './fermentables/fermentables';
-
-const fermentables = [{
-  name: '2-Row',
-  value: 11,
-  color: srm[7],
-}, {
-  name: 'Crystal 40',
-  value: 1.5,
-  color: srm[13],
-}, {
-  name: 'Honey Malt',
-  value: 0.5,
-  color: srm[9],
-}];
+import RecipeTabs from './recipe_tabs';
 
 export default function Recipes() {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [recipe, setRecipe] = useState<Recipe|null>(null);
+
+  useEffect(() => {
+    setRecipe(mockRecipe);
+  }, []);
+
+  if (!recipe) {
+    return (
+      <View />
+    );
+  }
 
   return (
     <Container>
-      <Text>{recipe && recipe.name}</Text>
-      <Fermentables fermentables={fermentables} />
+      <RecipeTabs recipe={recipe} />
     </Container>
   );
 }

@@ -221,7 +221,7 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.2)
   - RNGestureHandler (1.4.1):
     - React
-  - RNReanimated (1.3.0):
+  - RNReanimated (1.4.0):
     - React
   - RNScreens (1.0.0-alpha.23):
     - React
@@ -358,7 +358,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: fb54c732fd20405a76598e431aa2f8c2bf527de9
   ReactCommon: 5848032ed2f274fcb40f6b9ec24067787c42d479
   RNGestureHandler: 4cb47a93019c1a201df2644413a0a1569a51c8aa
-  RNReanimated: 6abbbae2e5e72609d85aabd92a982a94566885f1
+  RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: f28b48b8345f2f5f39ed6195518291515032a788
   RNSVG: f6177f8d7c095fada7cfee2e4bb7388ba426064c
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f

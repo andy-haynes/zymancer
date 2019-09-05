@@ -4,6 +4,27 @@ export type Fermentable = {
   color: string;
 };
 
+export type Weight = {
+  unit: string;
+  value: number;
+};
+
+export type HopAddition = {
+  minutes: number;
+  quantity: Weight;
+  type: string;
+  utilization: number;
+};
+
+export type Hop = {
+  name: string;
+  alpha: number;
+  beta: number;
+  additions: HopAddition[];
+};
+
 export type Recipe = {
-  name: string,
+  name: string;
+  fermentables: Fermentable[];
+  hops: Hop[];
 };
