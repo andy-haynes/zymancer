@@ -1,20 +1,22 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { TabView } from 'react-native-tab-view';
+import { Image } from 'react-native';
+import { TabBar, TabView } from 'react-native-tab-view';
 
+import colors from '../../theme/colors';
 import { Recipe } from '../../types/recipe';
 import { getWidth } from '../../utils/dimensions';
-import Fermentables from './fermentables/fermentables';
-import Hops from './hops/hops';
+import {
+  getRouteImage,
+  getRouteIndex,
+  getRoute,
+  getRoutes,
+  RecipeRoute,
+} from './recipe_routes';
 
 type Props = {
   recipe: Recipe,
 };
-
-enum RecipeRoute {
-  Fermentables = 'fermentables',
-  Hops = 'hops',
-}
 
 type RouteProps = {
   route: {
@@ -22,39 +24,15 @@ type RouteProps = {
   },
 };
 
-type Route = {
-  key: RecipeRoute,
-  render: (recipe: Recipe) => JSX.Element,
-  title: string,
-};
-
-const routeMap: Route[] = [{
-  key: RecipeRoute.Fermentables,
-  title: 'fermentables',
-  render: (recipe: Recipe) => (
-    <Fermentables fermentables={recipe.fermentables} />
-  ),
-}, {
-  key: RecipeRoute.Hops,
-  title: 'hops',
-  render: (recipe: Recipe) => (
-   <Hops hops={recipe.hops} />
-  ),
-}];
-
-const getRouteIndex = (route: RecipeRoute): number => _.indexOf(
-  routeMap,
-  _.find(routeMap, { key: route })
-);
-
 function RecipeTabs({ recipe }: Props) {
-  const renderScene = ({ route }: RouteProps) => routeMap[getRouteIndex(route.key)].render(recipe);
-
   const [index, setIndex] = useState<number>(getRouteIndex(RecipeRoute.Fermentables));
   const navigationState = {
     index,
-    routes: _.map(routeMap, (route) => _.pick(route, 'key', 'title')),
+    routes: getRoutes(),
   };
+
+  const renderScene = ({ route }: RouteProps) =>
+    _.invoke(getRoute(route.key), 'render', recipe);
 
   return (
     <TabView
@@ -62,6 +40,27 @@ function RecipeTabs({ recipe }: Props) {
       navigationState={navigationState}
       onIndexChange={(i) => setIndex(i)}
       renderScene={renderScene}
+      renderTabBar={(props) => (
+        <TabBar
+          {...props}
+          renderIcon={({ route }: RouteProps) => {
+            const routeImage = getRouteImage(route.key);
+            if (!routeImage) {
+              return null;
+            }
+            return (
+              <Image
+                source={routeImage}
+                style={{ height: 24, width: 24 }}
+              />
+            );
+          }}
+          renderLabel={() => null}
+          style={{
+            backgroundColor: colors.Black,
+          }}
+        />
+      )}
       tabBarPosition='bottom'
     />
   );
