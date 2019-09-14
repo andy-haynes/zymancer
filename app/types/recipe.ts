@@ -21,6 +21,7 @@ export type Hop = {
   alpha: number;
   beta: number;
   additions: HopAddition[];
+  aromaticProfile: string[];
 };
 
 export type Recipe = {

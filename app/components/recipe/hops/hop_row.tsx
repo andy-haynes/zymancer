@@ -13,7 +13,7 @@ export default function FermentableRow({ hop }: Props) {
     <View style={styles.row}>
       <View style={[styles.color]} />
       <Text style={styles.name}>
-        {hop.name}
+        {hop.name} {hop.alpha}% AAU
       </Text>
     </View>
   );
