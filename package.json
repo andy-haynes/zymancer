@@ -1,5 +1,5 @@
 {
-  "name": "zymancer_native",
+  "name": "zymancer",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,8 +7,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "react": "16.8.3",
-    "react-native": "0.59.9"
+    "react": "16.9.0",
+    "react-native": "0.61.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -21,6 +21,7 @@
     "jest": "^24.8.0",
     "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3",
+    "tslint": "^5.20.0",
     "typescript": "^3.5.1"
   },
   "jest": {
