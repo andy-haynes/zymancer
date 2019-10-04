@@ -11,22 +11,6 @@ interface Props {
   navOption: ImageNav;
 }
 
-export default ({ navOption }: Props) => (
-  <View key={navOption.label} style={styles.row}>
-    <View style={styles.imageBox}>
-      <Image
-        style={styles.imageRow}
-        source={{ uri: navOption.image }}
-      />
-      <View style={styles.imageLabel}>
-        <Text style={styles.labelText}>
-          {navOption.label}
-        </Text>
-      </View>
-    </View>
-  </View>
-);
-
 const styles = StyleSheet.create({
   imageBox: {
     marginTop: 1,
@@ -57,3 +41,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 });
+
+export default ({ navOption }: Props) => (
+  <View key={navOption.label} style={styles.row}>
+    <View style={styles.imageBox}>
+      <Image
+        style={styles.imageRow}
+        source={{ uri: navOption.image }}
+      />
+      <View style={styles.imageLabel}>
+        <Text style={styles.labelText}>
+          {navOption.label}
+        </Text>
+      </View>
+    </View>
+  </View>
+);

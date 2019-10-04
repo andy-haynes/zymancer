@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 
 import ImageRow, { ImageNav } from './image_row';
 
-const rows = [{
+export const routes = [{
   image: 'https://cdn.pixabay.com/photo/2016/03/21/23/36/brewery-1271858_1280.jpg',
   label: 'Brew',
 }, {
@@ -24,22 +24,6 @@ const rows = [{
 }];
 
 interface Props {}
-export default class App extends Component<Props> {
-  render() {
-    return (
-      <ScrollView>
-        <View style={styles.container}>
-          {rows.map((row: ImageNav) => (
-            <ImageRow
-              key={row.label}
-              navOption={row}
-            />
-          ))}
-        </View>
-      </ScrollView>
-    );
-  }
-}
 
 const styles = StyleSheet.create({
   container: {
@@ -49,3 +33,20 @@ const styles = StyleSheet.create({
     top: 20,
   },
 });
+
+export default class App extends Component<Props> {
+  render() {
+    return (
+      <ScrollView>
+        <View style={styles.container}>
+          {routes.map((route: ImageNav) => (
+            <ImageRow
+              key={route.label}
+              navOption={route}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    );
+  }
+}
