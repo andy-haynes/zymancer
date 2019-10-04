@@ -1,8 +1,13 @@
 import React from 'react';
-import { createAppContainer, createStackNavigator } from 'react-navigation';
+import {
+  createAppContainer,
+  NavigationContainerComponent,
+} from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
-import RootMenu from './root_menu';
+import NavigationService from '../services/navigation';
 import HeaderMenuButton from './header_menu_button';
+import RootMenu from './root_menu';
 
 const navigator = createStackNavigator({
   Root: {
@@ -14,4 +19,13 @@ const navigator = createStackNavigator({
   },
 });
 
-export default createAppContainer(navigator);
+// tslint:disable-next-line:variable-name
+const AppContainer = createAppContainer(navigator);
+
+export default function Navigation() {
+  return (
+    <AppContainer
+      ref={(navRef: NavigationContainerComponent) => NavigationService.setTopLevelNavigator(navRef)}
+    />
+  );
+}

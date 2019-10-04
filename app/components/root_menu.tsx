@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, Text } from 'react-native';
 
 import { ImageNavRoute, routes } from '../constants/routes';
 import ImageRow from './image_row';

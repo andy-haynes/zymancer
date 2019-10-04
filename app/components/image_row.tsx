@@ -2,7 +2,7 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { ImageNavRoute } from '../constants/routes';
-
+import NavigationService from '../services/navigation';
 import styles from './styles/image_row.style';
 
 interface Props {
@@ -16,6 +16,7 @@ export default function ImageRow({ navOption }: Props) {
       delayPressIn={80}
       key={navOption.label}
       style={styles.row}
+      onPress={() => navOption.screen && NavigationService.navigate(navOption.screen)}
     >
       <View style={styles.imageBox}>
         <Image

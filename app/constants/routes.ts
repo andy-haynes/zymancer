@@ -11,6 +11,10 @@ export const routes = [{
   image: 'https://cdn.pixabay.com/photo/2016/03/21/23/36/brewery-1271858_1280.jpg',
   label: 'Brew',
 }, {
+  image: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Green_Beacon_Brewing_Company_08.jpg',
+  label: 'Equipment',
+  screen: 'Equipment',
+}, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Saccharomyces_cerevisiae_SEM.jpg',
   label: 'Fermenting',
 }, {
