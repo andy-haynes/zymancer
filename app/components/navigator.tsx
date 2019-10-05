@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  createAppContainer,
-  NavigationContainerComponent,
-} from 'react-navigation';
+import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import NavigationService from '../services/navigation';
@@ -25,7 +22,7 @@ const AppContainer = createAppContainer(navigator);
 export default function Navigation() {
   return (
     <AppContainer
-      ref={(navRef: NavigationContainerComponent) => NavigationService.setTopLevelNavigator(navRef)}
+      ref={NavigationService.setTopLevelNavigator}
     />
   );
 }
