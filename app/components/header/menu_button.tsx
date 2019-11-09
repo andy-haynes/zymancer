@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import styles from './styles/header_menu_button.style';
+import styles from './styles/menu_button.style';
 
 export default function HeaderMenuButton() {
   return (
