@@ -1,5 +1,7 @@
-import NfcManager, { Ndef, TagEvent } from 'react-native-nfc-manager';
+import NfcManager, { Ndef } from 'react-native-nfc-manager';
+import { Observable } from 'rxjs';
 
+import { Tag } from '../types/nfc';
 import Platform from '../utils/platform';
 
 export enum NFCStatus {
@@ -21,6 +23,7 @@ export type NFCResponse = {
   },
   error: NFCError|null,
   status: NFCStatus|null,
+  tagReader: Observable<Tag>,
 };
 
 function isNFCSupported(): Promise<boolean> {
@@ -30,44 +33,6 @@ function isNFCSupported(): Promise<boolean> {
         return NfcManager.isEnabled();
       }
       return supported;
-    });
-}
-
-function readTagId(): Promise<string> {
-  return new Promise((resolve, reject) => {
-    NfcManager.registerTagEvent(
-      (tag: TagEvent) => {
-        try {
-          resolve(tag.id.toString());
-        } catch (e) {
-          reject(e);
-        }
-      },
-      'nfc'
-    );
-  });
-}
-
-function getTagId(): Promise<NFCResponse> {
-  return initialize()
-    .then((nfcStatus) => {
-      const error = <NFCError>nfcStatus || null;
-      const status = <NFCStatus>nfcStatus || null;
-      return readTagId()
-        .then((id) => ({
-          data: {
-            tag: id,
-          },
-          error,
-          status,
-        }))
-        .catch((e: Error) => {
-          console.error(e, 'tag registration error');
-          return {
-            error: NFCError.Registration,
-            status,
-          };
-        });
     });
 }
 
@@ -83,6 +48,24 @@ function initialize(): Promise<NFCStatus|NFCError> {
       console.error(e, 'NFC initialization error');
       return NFCError.Initialization;
     });
+}
+
+function registerTagObservable(): Observable<Tag> {
+  return new Observable((subscriber) => {
+    NfcManager.registerTagEvent(
+      (tag: Tag) => subscriber.next(tag),
+      'nfc'
+    );
+  });
+}
+
+function initializeTagReader(): Promise<NFCResponse> {
+  return initialize()
+    .then((nfcStatus) => ({
+      error: (<any>NFCError)[nfcStatus] || null,
+      status: (<any>NFCStatus)[nfcStatus] || null,
+      tagReader: registerTagObservable(),
+    }));
 }
 
 function generateTagIdentifier(): number[] {
@@ -125,6 +108,6 @@ function shutdown(): void {
 
 export default {
   formatTag,
-  getTagId,
+  initializeTagReader,
   shutdown,
 };

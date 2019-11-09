@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
+import { Subscription } from 'rxjs';
 
 import NfcService, { NFCError, NFCStatus } from '../services/nfc';
+import { Tag } from '../types/nfc';
 import styles from './styles/equipment.style';
 
 export default function Equipment() {
@@ -10,23 +12,24 @@ export default function Equipment() {
   const [nfcTagId, setNfcTagId] = useState<string|null>(null);
 
   useEffect(() => {
-    NfcService.getTagId()
-      .then(({ data, error, status }) => {
+    let subscription: Subscription;
+    NfcService.initializeTagReader()
+      .then((nfcResponse) => {
+        const { error, status, tagReader } = nfcResponse;
+        setNfcError(error);
         setNfcStatus(status);
-
-        if (error) {
-          setNfcError(error);
-        }
-
-        if (data) {
-          setNfcTagId(data.tag);
-        }
+        subscription = tagReader.subscribe((tag: Tag) => {
+          setNfcTagId(tag.id.toString());
+        });
       });
 
     return () => {
       NfcService.shutdown();
+      if (subscription) {
+        subscription.unsubscribe();
+      }
     };
-  });
+  }, []);
 
   return (
     <ScrollView>
