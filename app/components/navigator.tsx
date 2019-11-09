@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import NavigationService from '../services/navigation';
-import Equipment from './equipment';
+import Equipment from './equipment/equipment';
 import HeaderMenuButton from './header_menu_button';
 import RootMenu from './root_menu';
 
