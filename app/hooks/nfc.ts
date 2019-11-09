@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Observable, Subscription } from 'rxjs';
 
-import NfcService, { NFCResponse } from '../services/nfc';
-import { Tag } from '../types/nfc';
+import NFCService from '../services/nfc';
+import { NFCResponse, Tag } from '../types/nfc';
 
 export function useNfcMonitor(): NFCResponse|null {
   const [response, setResponse] = useState<NFCResponse|null>(null);
 
   useEffect(() => {
-    NfcService.initializeTagReader()
+    NFCService.initializeTagReader()
       .then((nfcResponse) => setResponse(nfcResponse));
 
-    return () => NfcService.shutdown();
+    return () => NFCService.shutdown();
   }, []);
 
   return response;
@@ -25,6 +25,7 @@ export function useTagReader(tagReader: Observable<Tag>): string|null {
     subscription = tagReader.subscribe(
       (tag: Tag) => setTagId(tag.id.toString())
     );
+
     return () => subscription.unsubscribe();
   }, []);
 

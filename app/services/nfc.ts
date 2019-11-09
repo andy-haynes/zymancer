@@ -1,27 +1,8 @@
 import NfcManager, { Ndef } from 'react-native-nfc-manager';
 import { Observable } from 'rxjs';
 
-import { Tag } from '../types/nfc';
+import { NFCError, NFCResponse, NFCStatus, Tag } from '../types/nfc';
 import Platform from '../utils/platform';
-
-export enum NFCStatus {
-  Formatted = 'Formatted',
-  Initialized = 'Initialized',
-}
-
-export enum NFCError {
-  Format = 'FormatError',
-  Initialization = 'InitializationError',
-  Registration = 'RegistrationError',
-  Unsupported = 'UnsupportedError',
-  Write = 'Write',
-}
-
-export type NFCResponse = {
-  error: NFCError|null,
-  status: NFCStatus|null,
-  tagReader: Observable<Tag>,
-};
 
 function isNFCSupported(): Promise<boolean> {
   return NfcManager.isSupported()
