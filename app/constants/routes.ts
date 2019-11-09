@@ -1,9 +1,3 @@
-export type ImageNavRoute = {
-  image: string,
-  label: string,
-  screen?: string,
-};
-
 export const routes = [{
   image: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/DuckfootbeerflightJune2016.JPG',
   label: 'Recipes',

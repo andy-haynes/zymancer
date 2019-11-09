@@ -1,11 +1,11 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, NavigationContainerComponent } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import NavigationService from '../services/navigation';
-import Equipment from './equipment/equipment';
+import NavigationService from '../../services/navigation';
+import Equipment from '../equipment/equipment';
 import HeaderMenuButton from './header_menu_button';
-import Recipes from './recipes';
+import Recipes from '../recipe/recipes';
 import RootMenu from './root_menu';
 
 const navigator = createStackNavigator({
@@ -38,7 +38,7 @@ const AppContainer = createAppContainer(navigator);
 export default function Navigation() {
   return (
     <AppContainer
-      ref={NavigationService.setTopLevelNavigator}
+      ref={(navRef: NavigationContainerComponent) => NavigationService.setTopLevelNavigator(navRef)}
     />
   );
 }

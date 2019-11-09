@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 
+import { Recipe } from '../../types/recipe';
 import styles from './styles/recipes.style';
-
-type Recipe = {
-  name: string;
-};
 
 export default function Recipes() {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
@@ -14,7 +11,6 @@ export default function Recipes() {
     <ScrollView>
       <View style={styles.container}>
         <Text>{recipe && recipe.name}</Text>
-        <Text>{!recipe && 'No recipe yet!'}</Text>
       </View>
     </ScrollView>
   );

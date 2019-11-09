@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-import { ImageNavRoute } from '../constants/routes';
-import NavigationService from '../services/navigation';
+import NavigationService from '../../services/navigation';
+import { ImageNavRoute } from '../../types/routes';
 import styles from './styles/image_row.style';
 
 interface Props {

@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import { getWidth } from '../../utils/dimensions';
+import { getWidth } from '../../../utils/dimensions';
 
 export default StyleSheet.create({
   imageBox: {
