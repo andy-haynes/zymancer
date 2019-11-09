@@ -1,7 +1,7 @@
 export type ImageNavRoute = {
   image: string,
   label: string,
-  route?: string,
+  screen?: string,
 };
 
 export const routes = [{
