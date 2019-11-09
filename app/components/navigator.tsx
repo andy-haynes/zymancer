@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import NavigationService from '../services/navigation';
 import Equipment from './equipment/equipment';
 import HeaderMenuButton from './header_menu_button';
+import Recipes from './recipes';
 import RootMenu from './root_menu';
 
 const navigator = createStackNavigator({
@@ -13,6 +14,13 @@ const navigator = createStackNavigator({
     navigationOptions: () => ({
       title: 'Zymancer',
       headerRight: <HeaderMenuButton />,
+    }),
+  },
+  Recipes: {
+    screen: Recipes,
+    navigationOptions: () => ({
+      title: 'Recipes',
+      headerRight: <HeaderMenuButton/>,
     }),
   },
   Equipment: {
