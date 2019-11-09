@@ -18,9 +18,6 @@ export enum NFCError {
 }
 
 export type NFCResponse = {
-  data?: {
-    tag: string,
-  },
   error: NFCError|null,
   status: NFCStatus|null,
   tagReader: Observable<Tag>,
