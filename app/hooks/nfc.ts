@@ -19,14 +19,17 @@ export function useNfcMonitor(): NFCResponse|null {
 
 export function useTagReader(tagReader: Observable<Tag>): string|null {
   const [tagId, setTagId] = useState<string|null>(null);
-  let subscription: Subscription;
+  const [subscription, setSubscription] = useState<Subscription|null>(null);
 
+  const setTag = (tag: Tag) => setTagId(tag.id.toString());
   useEffect(() => {
-    subscription = tagReader.subscribe(
-      (tag: Tag) => setTagId(tag.id.toString())
-    );
+    setSubscription(tagReader.subscribe(setTag));
 
-    return () => subscription.unsubscribe();
+    return () => {
+      if (subscription) {
+        subscription.unsubscribe();
+      }
+    };
   }, []);
 
   return tagId;
