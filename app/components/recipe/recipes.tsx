@@ -21,8 +21,6 @@ export default function Recipes() {
   }
 
   return (
-    <Container>
-      <RecipeTabs recipe={recipe} />
-    </Container>
+    <RecipeTabs recipe={recipe} />
   );
 }

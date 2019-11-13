@@ -3,6 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Fermentable } from '../../../types/ingredients';
+import Container from '../../core/container';
 import FermentableChart from './fermentable_chart';
 import FermentableRow from './fermentable_row';
 import styles from './styles/fermentables.style';
@@ -14,7 +15,7 @@ type Props = {
 export default function Fermentables(props: Props) {
   const fermentables: Fermentable[] = _.reverse(props.fermentables || []);
   return (
-    <View>
+    <Container>
       <View style={styles.chart}>
         <FermentableChart fermentables={fermentables} />
       </View>
@@ -24,6 +25,6 @@ export default function Fermentables(props: Props) {
           fermentable={fermentable}
         />
       ))}
-    </View>
+    </Container>
   );
 }

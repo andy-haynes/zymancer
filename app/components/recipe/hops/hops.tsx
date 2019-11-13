@@ -2,6 +2,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { Hop } from '../../../types/ingredients';
+import Container from '../../core/container';
 import HopChart from './hop_chart';
 import HopRow from './hop_row';
 import styles from './styles/hops.style';
@@ -13,7 +14,7 @@ type Props = {
 export default function Hops(props: Props) {
   const hops: Hop[] = props.hops || [];
   return (
-    <View>
+    <Container>
       <View style={styles.chart}>
         <HopChart hops={hops} />
       </View>
@@ -23,6 +24,6 @@ export default function Hops(props: Props) {
           hop={hop}
         />
       ))}
-    </View>
+    </Container>
   );
 }
