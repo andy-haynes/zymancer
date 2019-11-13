@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
 
-import { Fermentable } from '../../../types/recipe';
+import { Fermentable } from '../../../types/ingredients';
 import FermentableChart from './fermentable_chart';
 import FermentableRow from './fermentable_row';
 import styles from './styles/fermentables.style';

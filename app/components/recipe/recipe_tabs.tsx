@@ -57,7 +57,7 @@ function RecipeTabs({ recipe }: Props) {
           }}
           renderLabel={() => null}
           style={{
-            backgroundColor: colors.Black,
+            backgroundColor: colors.black,
           }}
         />
       )}

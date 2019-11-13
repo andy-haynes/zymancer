@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { Fermentable } from '../../../types/recipe';
+import { Fermentable } from '../../../types/ingredients';
 import styles from './styles/fermentable_row.style';
 
 type Props = {

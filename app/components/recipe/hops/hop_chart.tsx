@@ -7,7 +7,7 @@ import {
   VictoryTheme,
 } from 'victory-native';
 
-import { Hop } from '../../../types/recipe';
+import { Hop, HopAddition } from '../../../types/ingredients';
 import Platform from '../../../utils/platform';
 
 type DataPoint = {
@@ -28,11 +28,14 @@ function generateGreenShade(index: number, total: number, alpha: number) {
 }
 
 function buildHopDataset(hop: Hop, aromas: string[]): DataPoint[] {
-  const hopAromas: { [key in string]: number } = _.reduce(
+  const hopAromas: { [key: string]: number } = _.reduce(
     hop.aromaticProfile,
     (profile, aroma) => ({
       ...profile,
-      [aroma]: _.sumBy(hop.additions, (addition) => addition.quantity.value),
+      [aroma]: _.sumBy(
+        hop.additions,
+        (addition: HopAddition) => addition.quantity.value
+      ),
     }), {}
   );
 
@@ -43,7 +46,13 @@ function buildHopDataset(hop: Hop, aromas: string[]): DataPoint[] {
 }
 
 function sortHops(hops: Hop[]) {
-  return _.sortBy(hops, (hop) => _.sumBy(hop.additions, (addition) => addition.utilization));
+  return _.sortBy(
+    hops,
+    (hop) => _.sumBy(
+      hop.additions,
+      (addition) => addition.utilization
+    )
+  );
 }
 
 export default function HopChart({ hops }: ChartProps) {

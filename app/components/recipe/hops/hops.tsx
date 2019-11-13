@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import { Hop } from '../../../types/recipe';
+import { Hop } from '../../../types/ingredients';
 import HopChart from './hop_chart';
 import HopRow from './hop_row';
 import styles from './styles/hops.style';
