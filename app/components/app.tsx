@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Navigator from './navigation/navigator';
+import { AppContainer } from '../navigation';
 
 export default function App() {
   return (
-    <Navigator />
+    <AppContainer />
   );
 }
