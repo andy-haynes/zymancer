@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 
-import BrewServerService from '../services/brew_server';
+import BrewService from '../services/brew_server';
 import { BrewServerConfig, BrewServerResponse, BrewServerStatus } from '../types/brew_server';
 
 const DEFAULT_CONFIG = {
@@ -10,22 +10,22 @@ const DEFAULT_CONFIG = {
 };
 const POLL_INTERVAL = moment.duration(1.5, 'second').asMilliseconds();
 
-type BrewServerMonitor = {
+type BrewClient = {
   getLastUpdate: () => Promise<BrewServerResponse>,
   startService: () => Promise<BrewServerStatus>,
 };
 
-export function useBrewServerMonitor(config: BrewServerConfig): BrewServerMonitor {
+export function useBrewClient(config: BrewServerConfig): BrewClient {
   return {
-    getLastUpdate: () => BrewServerService.getLastUpdate(config),
-    startService: () => BrewServerService.startService(config),
+    getLastUpdate: () => BrewService.getLastUpdate(config),
+    startService: () => BrewService.startService(config),
   };
 }
 
-export function useBrewServerResponse(): BrewServerResponse|null {
+export function useBrewServerPolling(): BrewServerResponse|null {
   const [lastResponse, setLastResponse] = useState<BrewServerResponse|null>(null);
   const [pollInterval, setPollInterval] = useState<NodeJS.Timer|null>(null);
-  const { getLastUpdate, startService } = useBrewServerMonitor(DEFAULT_CONFIG);
+  const { getLastUpdate, startService } = useBrewClient(DEFAULT_CONFIG);
 
   useEffect(() => {
     function schedulePoll() {
