@@ -8,6 +8,7 @@ export const routes: ImageNavRoute[] = [{
 }, {
   image: 'https://cdn.pixabay.com/photo/2016/03/21/23/36/brewery-1271858_1280.jpg',
   label: 'Brew',
+  screen: ScreenName.Brew,
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/b/bc/Green_Beacon_Brewing_Company_08.jpg',
   label: 'Equipment',
