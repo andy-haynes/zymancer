@@ -9,17 +9,43 @@ function getStatus(): Promise<NetInfoState> {
   return Promise.try(() => NetInfo.fetch());
 }
 
-function request<T>(url: string, method: string, body?: any): Promise<T|null> {
+type RequestOptions = {
+  body?: any,
+  method: string,
+  suppressError?: boolean,
+};
+
+function request<T>(url: string, options: RequestOptions): Promise<T|null> {
+  const { body, method, suppressError } = options;
   const requestBody = body ? { body: JSON.stringify(body) } : {};
-  return Promise.try(() =>
-    fetch(url, {
-      ...(requestBody),
-      headers: HTTP_HEADERS,
-      method,
-    })
-  )
+  const requestOptions = {
+    ...(requestBody),
+    headers: HTTP_HEADERS,
+    method,
+  };
+
+  return Promise.resolve(fetch(url, requestOptions))
     .then((response) => response.json())
+    .tapCatch((e) => {
+      if (!suppressError) {
+        console.warn(e, url);
+      }
+    })
     .catchReturn(null);
+}
+
+function get<T>(url: string, suppressError: boolean = false) {
+  return request<T>(url, {
+    method: 'GET',
+    suppressError,
+  });
+}
+
+function post<T>(url: string, body?: any) {
+  return request<T>(url, {
+    body,
+    method: 'POST',
+  });
 }
 
 function getIPAddress(): Promise<string|null> {
@@ -33,6 +59,7 @@ function getIPAddress(): Promise<string|null> {
 }
 
 export default {
+  get,
   getIPAddress,
-  request,
+  post,
 };
