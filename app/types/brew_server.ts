@@ -24,12 +24,23 @@ export type BrewServerStatus = {
   status?: string,
 };
 
+export type PID = {
+  lastCorrection: number|null,
+  kP: number|null,
+  kI: number|null,
+  kD: number|null,
+  setpoint: number|null,
+  state: string,
+  value: number|null,
+};
+
 export type Relay = {
   is_on: boolean,
   pin: number,
 };
 
 export type ThermostatResponse = {
+  pid: PID,
   read_at: string,
   temperature: number,
 };
