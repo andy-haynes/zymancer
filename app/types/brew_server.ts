@@ -1,21 +1,27 @@
-export type BrewServerConfig = {
-  host: string,
-  port: number,
+import Promise from 'bluebird';
+
+export type BrewClient = {
+  getLastUpdate: () => Promise<BrewServerResponse|null>,
+  setTargetTemperature: (temperature: number) => Promise<BrewServerStatus|null> | null,
+  startService: () => Promise<BrewServerStatus|null>,
 };
 
 export type BrewServerHeartbeat = {
   alive: boolean,
 };
 
-export type BrewServerStatus = {
-  status: string,
-};
-
 export type BrewServerResponse = {
-  last_update: {
+  lastUpdate: {
     relays: Relay[],
     thermostat: ThermostatResponse,
-  }
+  },
+};
+
+export type BrewServerStatus = {
+  brewServerError: Error|null,
+  lastResponse: BrewServerResponse|null,
+  setTargetTemperature: (temperature: number) => Promise<BrewServerStatus|null>|null,
+  status?: string,
 };
 
 export type Relay = {
