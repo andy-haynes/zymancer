@@ -3,13 +3,16 @@ import { StyleSheet } from 'react-native';
 import Colors from '../../../../theme/colors';
 
 export default StyleSheet.create({
-  temperatureOutsideRange: {
-    backgroundColor: Colors.red,
+  temperatureDeltaText: {
+    color: Colors.offWhite,
   },
   temperatureInsideRange: {
     backgroundColor: Colors.green,
   },
-  temperatureDeltaText: {
-    color: Colors.offWhite,
+  temperatureOutsideRange: {
+    backgroundColor: Colors.red,
+  },
+  temperatureRangeWarning: {
+    backgroundColor: Colors.yellow,
   },
 });

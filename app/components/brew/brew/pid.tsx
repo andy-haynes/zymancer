@@ -1,21 +1,35 @@
 import _ from 'lodash';
 import React from 'react';
 
+import Colors from '../../../theme/colors';
 import { PID } from '../../../types/brew_server';
 import { Row } from '../../core';
 import DetailSquare from './detail_square';
 import styles from './styles/pid';
 
-const TEMPERATURE_THRESHOLD = 0.005;
+const TEMPERATURE_THRESHOLD_LOW = 0.005;
+const TEMPERATURE_THRESHOLD_HIGH = 0.01;
 
-function isInTemperatureRange(target: number|null, value: number|null): boolean {
+function isInTemperatureRange(target: number|null, value: number|null, thresholdPercentage: number): boolean {
   if (!target || !value) {
     return false;
   }
 
-  const minTemperatureDelta = target * TEMPERATURE_THRESHOLD;
+  const minTemperatureDelta = target * thresholdPercentage;
   const temperatureDelta = Math.abs(target - value);
   return temperatureDelta <= minTemperatureDelta;
+}
+
+function getDeltaColor(target: number|null, value: number|null): string {
+  if (isInTemperatureRange(target, value, TEMPERATURE_THRESHOLD_LOW)) {
+    return Colors.green;
+  }
+
+  if (isInTemperatureRange(target, value, TEMPERATURE_THRESHOLD_HIGH)) {
+    return Colors.yellow;
+  }
+
+  return Colors.red;
 }
 
 export default function PIDStatus({ pid }: { pid: PID }) {
@@ -39,7 +53,7 @@ export default function PIDStatus({ pid }: { pid: PID }) {
         <DetailSquare
           name='∆ C˚'
           nameStyle={styles.temperatureDeltaText}
-          squareStyle={isInTemperatureRange(setpoint, value) ? styles.temperatureInsideRange : styles.temperatureOutsideRange}
+          squareStyle={{ backgroundColor: getDeltaColor(setpoint, value) }}
           value={`${setpointDelta} ˚C`}
           valueStyle={styles.temperatureDeltaText}
         />
