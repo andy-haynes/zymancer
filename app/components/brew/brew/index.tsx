@@ -1,10 +1,10 @@
 import moment, { Moment } from 'moment';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { useBrewServerMonitor } from '../../../hooks/brew_server';
 import { BrewServerResponse, ThermostatResponse } from '../../../types/brew_server';
-import { Column, Container, Row } from '../../core';
+import { Button, Column, Container, Row } from '../../core';
 import styles from './styles/brew';
 import PID from './pid';
 import Relays from './relays';
@@ -80,13 +80,10 @@ export default function Brew() {
           )}
         </Column>
       )}
-      <View style={styles.setTemperatureButton}>
-        <TouchableOpacity onPress={() => setTargetTemperature(60)}>
-          <Text>
-            Set Temperature
-          </Text>
-        </TouchableOpacity>
-      </View>
+      <Button
+        onPress={() => setTargetTemperature(54)}
+        text='Set Temperature'
+      />
     </Container>
   );
 }

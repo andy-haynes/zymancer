@@ -10,11 +10,6 @@ export default StyleSheet.create({
     borderColor: Colors.grayDark,
     borderWidth: 1,
   },
-  setTemperatureButton: {
-    backgroundColor: Colors.grayLight,
-    height: 80,
-    width: 200,
-  },
   temperatureText: {
     fontSize: 18,
   },
