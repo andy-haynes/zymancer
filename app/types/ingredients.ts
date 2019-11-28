@@ -1,10 +1,33 @@
 import { HopAdditionType, HopFormType } from '../constants/recipe';
 import { Gravity, Measurement } from './zymath';
 
+export type RawIngredient = {
+  name: string,
+  ingredientType: number,
+  /* fermentables */
+  color: string,
+  gravity?: number,
+  lovibond?: string,
+  /* hops */
+  alpha?: number,
+  alphaRange?: string,
+  beta?: number,
+  betaRange?: string,
+  categories?: string,
+  aromaticProfile?: string[],
+  form?: HopFormType,
+  /* yeast */
+  code?: string,
+  pitchRate?: string,
+  pitchTemp?: string,
+  styles?: string,
+};
+
 export type Fermentable = {
   name: string;
   color: string;
   gravity: Gravity|null;
+  lovibond: number|null,
   weight: Measurement;
 };
 

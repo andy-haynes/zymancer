@@ -18,6 +18,7 @@ import {
   Fermentable,
   Hop,
   Ingredient,
+  RawIngredient,
   Yeast,
 } from '../types/ingredients';
 import { Recipe } from '../types/recipe';
@@ -41,7 +42,7 @@ function parseRange(rawRange: string): Range {
   return new Range(min, max);
 }
 
-function parseRanges(ingredient: Ingredient): Ingredient {
+function parseRanges(ingredient: RawIngredient): RawIngredient {
   const rangeProps = [
     'attenuation',
     'temperature',
@@ -73,23 +74,23 @@ function parseRanges(ingredient: Ingredient): Ingredient {
     _.assign(ranges, { [key]: value.join(' - ') });
   });
 
-  return <Ingredient>{
+  return <RawIngredient>{
     ..._.omit(ingredient, _.flatten(_.map(rangeProps, (prefix) => [`${prefix}High`, `${prefix}Low`]))),
     ...ranges,
   };
 }
 
-function filterIngredients(ingredients: Ingredient[], type: IngredientType): Ingredient[] {
+function filterIngredients(ingredients: RawIngredient[], type: IngredientType): RawIngredient[] {
   const index = {
     [IngredientType.Malt]: 1,
     [IngredientType.Hop]: 2,
     [IngredientType.Yeast]: 3,
   }[type];
-  const filteredIngredients: Ingredient[] = <Ingredient[]>_.filter(ingredients, { ingredientType: index });
+  const filteredIngredients: RawIngredient[] = <RawIngredient[]>_.filter(ingredients, { ingredientType: index });
   return _.map(filteredIngredients, parseRanges);
 }
 
-function randomizeIngredientType<T>(ingredients: Ingredient[], type: IngredientType): T[] {
+function randomizeIngredientType(ingredients: RawIngredient[], type: IngredientType): RawIngredient[] {
   const high = {
     [IngredientType.Malt]: 8,
     [IngredientType.Hop]: 5,
@@ -98,16 +99,15 @@ function randomizeIngredientType<T>(ingredients: Ingredient[], type: IngredientT
   const count = high - _.random(0, high - 1);
   const filtered = filterIngredients(ingredients, type);
   const indices = _.map(_.range(count), () => _.random(0, filtered.length - 1));
-  return <T[]>_.map(indices, (i) => _.omit(filtered[i], 'ingredientType'));
+  return _.filter(filtered, (ingredient, i) => _.includes(indices, i));
 }
 
-function randomizeFermentables(grains: Ingredient[]): Fermentable[] {
-  return _.map(grains, (ingredient) => {
-    const grain = <Fermentable>ingredient;
-    const lovibond = _.parseInt(_.get(ingredient, 'lovibond')) || 0;
+function randomizeFermentables(grains: RawIngredient[]): Fermentable[] {
+  return _.map(grains, (grain) => {
+    const lovibond = _.parseInt(grain?.lovibond || '') || 0;
     const srm = _.round(1.4922 * Math.pow(lovibond, 0.6859));
     const srmValue = _.min([srm, 40]) || 0;
-    const gravity = _.get(ingredient, 'gravity');
+    const gravity = grain?.gravity;
     return {
       ..._.pick(grain, 'name'),
       weight: {
@@ -116,18 +116,20 @@ function randomizeFermentables(grains: Ingredient[]): Fermentable[] {
       },
       color: _.get(SRMColors, srmValue),
       gravity: gravity ? new Gravity(gravity) : null,
+      lovibond,
+      srm,
     };
   });
 }
 
-function randomizeHopAdditions(hops: Ingredient[]): Hop[] {
+function randomizeHopAdditions(hops: RawIngredient[]): Hop[] {
   const randomizeAcid = (rawRange: string): number =>
     _.round(randomByRangeIncrement(parseRange(rawRange), 0.1), 1);
   return _.map(hops, (hop) => {
-    const name = _.get(hop, 'name', '');
-    const alphaRange = _.get(hop, 'alphaRange', '');
-    const betaRange = _.get(hop, 'betaRange', '');
-    const aromaticProfile = _.get(hop, 'categories', '').split(',');
+    const name = hop?.name || '';
+    const alphaRange = hop?.alphaRange || '';
+    const betaRange = hop?.betaRange || '';
+    const aromaticProfile = (hop?.categories || '').split(',');
     return {
       ...hop,
       name,
@@ -149,9 +151,9 @@ function randomizeHopAdditions(hops: Ingredient[]): Hop[] {
   });
 }
 
-function randomizeYeasts(yeasts: Ingredient[]): Yeast[] {
+function randomizeYeasts(yeasts: RawIngredient[]): Yeast[] {
   return _.map(yeasts, (yeast) => {
-    const code = _.get(yeast, 'code', '');
+    const code = yeast?.code || '';
     return {
       ...yeast,
       code,
@@ -188,9 +190,9 @@ export const randomizeRecipe = (): Promise<Recipe> => {
   return getIngredients()
     .then((ingredients: any[]) => {
       const lastBrewed = moment().subtract(_.random(3, 432), 'days');
-      const fermentables = randomizeIngredientType<Fermentable>(ingredients, IngredientType.Malt);
-      const hops = randomizeIngredientType<Hop>(ingredients, IngredientType.Hop);
-      const yeast = randomizeIngredientType<Yeast>(ingredients, IngredientType.Yeast);
+      const fermentables = randomizeIngredientType(ingredients, IngredientType.Malt);
+      const hops = randomizeIngredientType(ingredients, IngredientType.Hop);
+      const yeast = randomizeIngredientType(ingredients, IngredientType.Yeast);
       const style = bjcpStyles[_.random(0, bjcpStyles.length - 1)];
 
       return {
