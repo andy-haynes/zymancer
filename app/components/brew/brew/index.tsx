@@ -44,7 +44,7 @@ export default function Brew() {
       {brewServerError && (
         <View>
           <Text>
-            server error: {brewServerError.message}
+            server error: {brewServerError?.message}
           </Text>
         </View>
       )}
@@ -63,7 +63,7 @@ export default function Brew() {
           {lastResponse.lastUpdate.relays && (
             <Relays relays={lastResponse.lastUpdate.relays} />
           )}
-          {_.get(lastResponse, 'lastUpdate.thermostat.pid') && (
+          {lastResponse?.lastUpdate.thermostat.pid && (
             <PID pid={lastResponse.lastUpdate.thermostat.pid} />
           )}
         </>

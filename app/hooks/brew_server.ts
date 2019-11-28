@@ -68,6 +68,6 @@ export function useBrewServerMonitor(): BrewServerStatus {
     brewServerError,
     lastResponse,
     setTargetTemperature: (temperature: number) =>
-      brewClient && brewClient.setTargetTemperature(temperature),
+      brewClient?.setTargetTemperature(temperature) || null,
   };
 }

@@ -63,9 +63,9 @@ export const getRoutes = (): Array<{ key: RecipeRoute, title: string }> =>
   _.map(routeMap, (route) => _.pick(route, 'key', 'title'));
 
 export const getRouteIndex = (route: RecipeRoute): number =>
-  _.get(getRoute(route), 'position', 0);
+  getRoute(route)?.position || 0;
 
 export const getRouteImage = (route: RecipeRoute): number|null => {
   const targetRoute = getRoute(route);
-  return _.get(targetRoute, 'image', null);
+  return targetRoute?.image || null;
 };

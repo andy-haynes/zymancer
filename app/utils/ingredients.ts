@@ -36,8 +36,8 @@ function parseRange(rawRange: string): Range {
     (rawRange || '').split('-'),
     _.parseInt
   );
-  const min = _.parseInt(_.get(values, '0', null));
-  const max = _.parseInt(_.get(values, '1', min));
+  const min = _.parseInt(values?.[0].toString());
+  const max = _.parseInt(values?.[1].toString());
   return new Range(min, max);
 }
 

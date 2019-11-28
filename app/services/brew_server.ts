@@ -53,7 +53,7 @@ function getLastUpdate(url: string): Promise<BrewServerResponse|null> {
 
 function isServerAvailable(url: string, suppressError: boolean): Promise<boolean> {
   return NetworkService.get<BrewServerHeartbeat>(`${url}/alive`, suppressError)
-    .then((response) => _.get(response, 'alive', false));
+    .then((response) => response?.alive || false);
 }
 
 function setBrewServerUrl(url: string|null): Promise<void> {
