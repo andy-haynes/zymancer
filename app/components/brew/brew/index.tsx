@@ -1,11 +1,10 @@
-import _ from 'lodash';
-import moment from 'moment';
+import moment, { Moment } from 'moment';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { useBrewServerMonitor } from '../../../hooks/brew_server';
 import { BrewServerResponse, ThermostatResponse } from '../../../types/brew_server';
-import Container from '../../core/container';
+import { Column, Container, Row } from '../../core';
 import styles from './styles/brew';
 import PID from './pid';
 import Relays from './relays';
@@ -22,13 +21,21 @@ const getLastTemperature = (response: BrewServerResponse): number|null => {
   return thermostat && thermostat.temperature;
 };
 
-const getTimeSinceLastUpdate = (response: BrewServerResponse): number|null => {
+const getLastReadTime = (response: BrewServerResponse): Moment|null => {
   const thermostat = getThermostatResponse(response);
   if (!thermostat) {
     return null;
   }
-  const lastReadTime = moment(thermostat.read_at);
-  const duration = moment.duration(moment().diff(lastReadTime));
+  return moment(thermostat.read_at);
+};
+
+const getTimeSinceLastUpdate = (response: BrewServerResponse): number|null => {
+  const lastReadTime = getLastReadTime(response);
+  if (!lastReadTime) {
+    return null;
+  }
+
+  const duration = moment.duration(moment().utc().diff(lastReadTime));
   return duration.as('seconds');
 };
 
@@ -49,24 +56,29 @@ export default function Brew() {
         </View>
       )}
       {lastResponse && (
-        <>
-          <View>
+        <Column>
+          <Row>
+            <Text style={styles.lastUpdateText}>
+              Last read: {getLastReadTime(lastResponse)?.format() || 'No response'}
+            </Text>
+          </Row>
+          <Row>
             <Text style={styles.lastUpdateText}>
               Seconds since last update: {getTimeSinceLastUpdate(lastResponse)}
             </Text>
-          </View>
-          <View>
+          </Row>
+          <Row>
             <Text style={styles.lastUpdateText}>
-              Last temperature: {getLastTemperature(lastResponse)}
+              Last temperature: {getLastTemperature(lastResponse)} ˚C
             </Text>
-          </View>
+          </Row>
           {lastResponse.lastUpdate.relays && (
             <Relays relays={lastResponse.lastUpdate.relays} />
           )}
           {lastResponse?.lastUpdate.thermostat.pid && (
             <PID pid={lastResponse.lastUpdate.thermostat.pid} />
           )}
-        </>
+        </Column>
       )}
       <View style={styles.setTemperatureButton}>
         <TouchableOpacity onPress={() => setTargetTemperature(60)}>

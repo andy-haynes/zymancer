@@ -9,12 +9,14 @@ import DetailSquare from './detail_square';
 export default function Brew({ relays }: { relays: Relay[] }) {
   return (
     <Row>
-      {_.map(relays, (relay) => (
+      {_.map(relays, ({ is_on, pin }) => (
         <DetailSquare
-          key={relay.pin}
-          name={relay.pin}
-          style={[styles.relaySquare, relay.is_on ? styles.relayOn : styles.relayOff]}
-          value={relay.is_on ? 'On' : 'Off'}
+          key={pin}
+          name={`PIN ${pin}`}
+          nameStyle={styles.relayPin}
+          squareStyle={is_on ? styles.relayOn : styles.relayOff}
+          value={is_on ? 'ON' : 'OFF'}
+          valueStyle={styles.relayState}
         />
       ))}
     </Row>

@@ -7,20 +7,28 @@ import styles from './styles/detail_square';
 
 type Props = {
   name: string|number,
-  style?: ComponentStyle,
+  nameStyle?: ComponentStyle,
+  squareStyle?: ComponentStyle,
   value: string|number|null,
+  valueStyle?: ComponentStyle,
 };
 
-export default function DetailSquare({ name, style, value }: Props) {
+export default function DetailSquare({
+  name,
+  nameStyle,
+  squareStyle,
+  value,
+  valueStyle,
+}: Props) {
   return (
-    <Column style={[styles.square, style]}>
+    <Column style={[styles.square, squareStyle]}>
       <Row style={styles.nameRow}>
-        <Text style={styles.name}>
+        <Text style={[styles.name, nameStyle]}>
           {name}
         </Text>
       </Row>
       <Row style={styles.valueRow}>
-        <Text style={styles.value}>
+        <Text style={[styles.value, valueStyle]}>
           {value}
         </Text>
       </Row>

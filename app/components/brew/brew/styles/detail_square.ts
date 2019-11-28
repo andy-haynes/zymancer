@@ -9,20 +9,29 @@ export default StyleSheet.create({
     fontWeight: '600',
   },
   nameRow: {
+    flex: 1,
     paddingLeft: 2,
   },
   square: {
     borderColor: Colors.grayLight,
     borderWidth: 1,
-    height: 120,
+    flex: 1,
+    flexDirection: 'column',
+    height: 100,
     margin: 2,
-    width: 120,
+    paddingBottom: 12,
+    paddingLeft: 6,
+    paddingRight: 12,
+    paddingTop: 6,
   },
   value: {
     color: Colors.grayDark,
-    fontSize: 36,
-    fontWeight: '700',
+    fontSize: 46,
+    fontWeight: '600',
+    textAlign: 'right',
+    width: '100%',
   },
   valueRow: {
+    flex: 4,
   },
 });
