@@ -13,26 +13,24 @@ export function useBrewServerMonitor(): BrewServerStatus {
   const [lastResponse, setLastResponse] = useState<BrewServerResponse|null>(null);
   const [pollInterval, setPollInterval] = useState<NodeJS.Timer|null>(null);
 
-  useEffect(() => {
-    function schedulePoll(client: BrewClient): Promise<any>|null {
-      return client.getLastUpdate()
-        .then((response) => {
-          setLastResponse(response);
-          setPollInterval(setTimeout(() => schedulePoll(client), POLL_INTERVAL));
-        })
-        .catch((e) => console.warn('error getting latest update', e));
-    }
-
-    function startService(client: BrewClient): Promise<any>|null {
-      return client.startService()
-        .then(() => schedulePoll(client));
-    }
-
-    BrewClientService.initializeBrewClient()
-      .then((client) => {
-        setBrewClient(client);
-        return startService(client);
+  function schedulePoll(client: BrewClient): Promise<any>|null {
+    return client.getLastUpdate()
+      .then((response) => {
+        setLastResponse(response);
+        setPollInterval(setTimeout(() => schedulePoll(client), POLL_INTERVAL));
       })
+      .catch((e) => console.warn('error getting latest update', e));
+  }
+
+  function startService(client: BrewClient): Promise<any>|null {
+    setBrewClient(client);
+    return client.startService()
+      .then(() => schedulePoll(client));
+  }
+
+  useEffect(() => {
+    BrewClientService.initializeBrewClient()
+      .then((client) => startService(client))
       .catch((e) => setBrewServerError(e));
 
     return () => {
