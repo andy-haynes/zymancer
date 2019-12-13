@@ -13,7 +13,7 @@ export function useBrewServerMonitor(): BrewServerStatus {
   const [lastResponse, setLastResponse] = useState<BrewServerResponse|null>(null);
   const [pollInterval, setPollInterval] = useState<NodeJS.Timer|null>(null);
 
-  function schedulePoll(client: BrewClient): Promise<any>|null {
+  function schedulePoll(client: BrewClient): Promise<void> {
     return client.getLastUpdate()
       .then((response) => {
         setLastResponse(response);
@@ -22,7 +22,7 @@ export function useBrewServerMonitor(): BrewServerStatus {
       .catch((e) => console.warn('error getting latest update', e));
   }
 
-  function startService(client: BrewClient): Promise<any>|null {
+  function startService(client: BrewClient): Promise<void> {
     setBrewClient(client);
     return client.startService()
       .then(() => schedulePoll(client));
