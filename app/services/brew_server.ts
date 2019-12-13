@@ -3,8 +3,10 @@ import _ from 'lodash';
 
 import AsyncStorage, { StorageKey } from '../services/async_storage';
 import NetworkService from '../services/network';
-import { BrewServerHeartbeat, BrewServerResponse, BrewServerStatus, } from '../types/brew_server';
+import { BrewServerHeartbeat, BrewServerResponse, BrewServerStatus } from '../types/brew_server';
 import { generateIPRange } from '../utils/network';
+
+const DEFAULT_PORT = 3000;
 
 function checkBrewServerUrl(url: string): Promise<string|null> {
   return isServerAvailable(url, true)
@@ -56,6 +58,24 @@ function isServerAvailable(url: string, suppressError: boolean): Promise<boolean
     .then((response) => response?.alive || false);
 }
 
+function resolveUrl(): Promise<string> {
+  return getBrewServerUrl()
+    .then((url) => {
+      if (url) {
+        return url;
+      }
+
+      return findBrewServerUrl(DEFAULT_PORT)
+        .then((serverUrl) => {
+          if (!serverUrl) {
+            throw new Error(`could not find server listening on port ${DEFAULT_PORT}`);
+          }
+          setBrewServerUrl(serverUrl);
+          return serverUrl;
+        });
+    });
+}
+
 function setBrewServerUrl(url: string|null): Promise<void> {
   if (!url) {
     return Promise.resolve();
@@ -72,10 +92,8 @@ function startService(url: string): Promise<BrewServerStatus|null> {
 }
 
 export default {
-  findBrewServerUrl,
-  getBrewServerUrl,
   getLastUpdate,
-  setBrewServerUrl,
+  resolveUrl,
   setTargetTemperature,
   startService,
 };
