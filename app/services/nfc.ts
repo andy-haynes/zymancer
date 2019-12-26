@@ -1,14 +1,15 @@
-import NfcManager, { Ndef } from 'react-native-nfc-manager';
+import Promise from 'bluebird';
 import { Observable } from 'rxjs';
 
+import NFCManager from '../native/nfc';
 import { NFCError, NFCResponse, NFCStatus, Tag } from '../types/nfc';
 import Platform from '../utils/platform';
 
 function isNFCSupported(): Promise<boolean> {
-  return NfcManager.isSupported()
+  return NFCManager.isSupported()
     .then((supported) => {
       if (supported && Platform.isAndroid()) {
-        return NfcManager.isEnabled();
+        return NFCManager.isEnabled();
       }
       return supported;
     });
@@ -29,12 +30,9 @@ function initialize(): Promise<NFCStatus|NFCError> {
 }
 
 function registerTagObservable(): Observable<Tag> {
-  return new Observable((subscriber) => {
-    NfcManager.registerTagEvent(
-      (tag: Tag) => subscriber.next(tag),
-      'nfc'
-    );
-  });
+  return new Observable((subscriber) =>
+    NFCManager.registerTagEvent((tag: Tag) => subscriber.next(tag))
+  );
 }
 
 function initializeTagReader(): Promise<NFCResponse> {
@@ -47,15 +45,11 @@ function initializeTagReader(): Promise<NFCResponse> {
 }
 
 function generateTagIdentifier(): number[] {
-  const parseData = (data: number[], value: number): number[] => [...data, value];
-  return Ndef.encodeMessage([
-    Ndef.uriRecord('uuid'),
-  ]).reduce(parseData, []);
+  return NFCManager.getUUID();
 }
 
-// TODO look up actual return type
-function writeTag(): Promise<number[]|NFCError> {
-  return NfcManager.requestNdefWrite(generateTagIdentifier())
+function writeTag(): Promise<void|NFCError> {
+  return NFCManager.requestWrite(generateTagIdentifier())
     .catch((e: Error) => {
       console.error(e, 'tag write error');
       return NFCError.Write;
@@ -81,7 +75,7 @@ function formatTag(): Promise<NFCStatus|NFCError> {
 }
 
 function shutdown(): void {
-  NfcManager.stop();
+  NFCManager.stop();
 }
 
 export default {
