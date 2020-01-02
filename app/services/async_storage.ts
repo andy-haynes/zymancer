@@ -1,5 +1,6 @@
-import AsyncStorage from '@react-native-community/async-storage';
 import Promise from 'bluebird';
+
+import AsyncStorage from '../native/async_storage';
 
 export enum StorageKey {
   BrewServerUrl = 'STORAGE_KEY/BREW_SERVER_URL',
