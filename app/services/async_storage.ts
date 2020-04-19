@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 import AsyncStorage from '../native/async_storage';
 
 export enum StorageKey {
@@ -7,11 +5,11 @@ export enum StorageKey {
 }
 
 function get(key: StorageKey): Promise<string|null> {
-  return Promise.resolve(AsyncStorage.getItem(key));
+  return AsyncStorage.getItem(key);
 }
 
 function set(key: StorageKey, value: string): Promise<void> {
-  return Promise.resolve(AsyncStorage.setItem(key, value));
+  return AsyncStorage.setItem(key, value);
 }
 
 export default {

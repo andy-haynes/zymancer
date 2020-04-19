@@ -1,5 +1,3 @@
-import Promise from 'bluebird';
-
 export type BrewClient = {
   getLastUpdate: () => Promise<BrewServerResponse|null>,
   setTargetTemperature: (temperature: number) => Promise<BrewServerStatus|null> | null,

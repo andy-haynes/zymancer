@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import _ from 'lodash';
 
 import AsyncStorage, { StorageKey } from '../services/async_storage';
@@ -8,41 +7,33 @@ import { generateIPRange } from '../utils/network';
 
 const DEFAULT_PORT = 3000;
 
-function checkBrewServerUrl(url: string): Promise<string|null> {
-  return isServerAvailable(url, true)
-    .then((isAvailable) => {
-      if (!isAvailable) {
-        return null;
-      }
-      return url;
-    });
+async function checkBrewServerUrl(url: string): Promise<string|null> {
+  const isAvailable = await isServerAvailable(url, true);
+  if (!isAvailable) {
+    return null;
+  }
+  return url;
 }
 
-function checkBrewServerUrls(urls: string[]): Promise<string|null> {
-  if (_.isEmpty(urls)) {
-    return Promise.resolve(null);
+async function checkBrewServerUrls(urls: string[]): Promise<string> {
+  const targetUrl = urls[0];
+  const url = await checkBrewServerUrl(targetUrl);
+  if (url) {
+    return url;
   }
 
-  const targetUrl = urls[0];
-  return checkBrewServerUrl(targetUrl)
-    .then((url) => {
-      if (url) {
-        return url;
-      }
-      return checkBrewServerUrls(_.slice(urls, 1));
-    });
+  return checkBrewServerUrls(_.slice(urls, 1));
 }
 
-function findBrewServerUrl(port: number): Promise<string|null> {
-  return NetworkService.getIPAddress()
-    .then((ip: string|null) => {
-      if (!ip) {
-        return [];
-      }
-      const potentialHosts = generateIPRange(ip, 20);
-      return _.map(potentialHosts, (host) => `http://${host}:${port}`);
-    })
-    .then((urls) => checkBrewServerUrls(urls));
+async function findBrewServerUrl(port: number): Promise<string|null> {
+  const ip = await NetworkService.getIPAddress();
+  if (!ip) {
+    return null;
+  }
+
+  const potentialHosts = generateIPRange(ip, 20);
+  const urls = _.map(potentialHosts, (host) => `http://${host}:${port}`);
+  return checkBrewServerUrls(urls);
 }
 
 function getBrewServerUrl(): Promise<string|null> {

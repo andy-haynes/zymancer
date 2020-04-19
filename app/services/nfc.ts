@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import { Observable } from 'rxjs';
 
 import NFCManager from '../native/nfc';

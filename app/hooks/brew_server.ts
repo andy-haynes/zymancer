@@ -1,4 +1,3 @@
-import Promise from 'bluebird';
 import moment from 'moment';
 import { useEffect, useState } from 'react';
 
@@ -13,22 +12,27 @@ export function useBrewServerMonitor(): BrewServerStatus {
   const [lastResponse, setLastResponse] = useState<BrewServerResponse|null>(null);
   const [pollInterval, setPollInterval] = useState<NodeJS.Timer|null>(null);
 
-  function getUpdate(): Promise<void>|undefined {
-    return brewClient?.getLastUpdate()
-      .then((response) => setLastResponse(response))
-      .catch((e) => console.warn('error getting latest update', e));
+  async function getUpdate(): Promise<void> {
+    try {
+      const update = await brewClient?.getLastUpdate();
+      if (update) {
+        setLastResponse(update);
+      }
+    } catch (e) {
+      console.warn('error getting latest update', e);
+    }
   }
 
-  function schedulePoll(): Promise<void>|undefined {
+  async function schedulePoll(): Promise<void> {
     const scheduleNext = () => setTimeout(() => schedulePoll(), POLL_INTERVAL);
-    return getUpdate()
-      ?.then(() => setPollInterval(scheduleNext()));
+    await getUpdate();
+    setPollInterval(scheduleNext());
   }
 
-  function startService(client: BrewClient): Promise<void> {
+  async function startService(client: BrewClient): Promise<void> {
     setBrewClient(client);
-    return client.startService()
-      .then(() => schedulePoll());
+    await client.startService();
+    await schedulePoll();
   }
 
   useEffect(() => {
