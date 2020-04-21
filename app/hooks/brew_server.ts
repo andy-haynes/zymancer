@@ -36,9 +36,14 @@ export function useBrewServerMonitor(): BrewServerStatus {
   }
 
   useEffect(() => {
-    BrewClientService.initializeBrewClient()
-      .then((client) => startService(client))
-      .catch((e) => setBrewServerError(e));
+    (async () => {
+      try {
+        const client = await BrewClientService.initializeBrewClient();
+        startService(client);
+      } catch (e) {
+        setBrewServerError(e);
+      }
+    })();
 
     return () => {
       if (pollInterval) {

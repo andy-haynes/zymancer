@@ -10,8 +10,10 @@ export default function Recipes() {
   const [recipe, setRecipe] = useState<Recipe|null>(null);
 
   useEffect(() => {
-    RecipeService.getRecipe()
-      .then((randomRecipe) => setRecipe(randomRecipe));
+    (async () => {
+      const randomRecipe = await RecipeService.getRecipe();
+      setRecipe(randomRecipe);
+    })();
   }, []);
 
   if (!recipe) {

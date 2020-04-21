@@ -12,6 +12,7 @@ async function checkBrewServerUrl(url: string): Promise<string|null> {
   if (!isAvailable) {
     return null;
   }
+
   return url;
 }
 
@@ -44,33 +45,31 @@ function getLastUpdate(url: string): Promise<BrewServerResponse|null> {
   return NetworkService.get<BrewServerResponse>(`${url}/update`);
 }
 
-function isServerAvailable(url: string, suppressError: boolean): Promise<boolean> {
-  return NetworkService.get<BrewServerHeartbeat>(`${url}/alive`, suppressError)
-    .then((response) => response?.alive || false);
+async function isServerAvailable(url: string, suppressError: boolean): Promise<boolean> {
+  const heartbeatResponse = await NetworkService.get<BrewServerHeartbeat>(`${url}/alive`, suppressError);
+  return heartbeatResponse?.alive || false;
 }
 
-function resolveUrl(): Promise<string> {
-  return getBrewServerUrl()
-    .then((url) => {
-      if (url) {
-        return url;
-      }
+async function resolveUrl(): Promise<string> {
+  const url = await getBrewServerUrl();
+  if (url) {
+    return url;
+  }
 
-      return findBrewServerUrl(DEFAULT_PORT)
-        .then((serverUrl) => {
-          if (!serverUrl) {
-            throw new Error(`could not find server listening on port ${DEFAULT_PORT}`);
-          }
-          setBrewServerUrl(serverUrl);
-          return serverUrl;
-        });
-    });
+  const serverUrl = await findBrewServerUrl(DEFAULT_PORT);
+  if (!serverUrl) {
+    throw new Error(`could not find server listening on port ${DEFAULT_PORT}`);
+  }
+
+  setBrewServerUrl(serverUrl);
+  return serverUrl;
 }
 
 function setBrewServerUrl(url: string|null): Promise<void> {
   if (!url) {
     return Promise.resolve();
   }
+
   return AsyncStorage.set(StorageKey.BrewServerUrl, url);
 }
 

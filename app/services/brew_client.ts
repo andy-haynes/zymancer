@@ -9,9 +9,9 @@ function createBrewClient(url: string): BrewClient {
   };
 }
 
-function initializeBrewClient() {
-  return BrewServerService.resolveUrl()
-    .then((url) => createBrewClient(url));
+async function initializeBrewClient() {
+  const url = await BrewServerService.resolveUrl();
+  return createBrewClient(url);
 }
 
 export default {

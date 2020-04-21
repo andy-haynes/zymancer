@@ -8,8 +8,10 @@ export function useNfcMonitor(): NFCResponse|null {
   const [response, setResponse] = useState<NFCResponse|null>(null);
 
   useEffect(() => {
-    NFCService.initializeTagReader()
-      .then((nfcResponse) => setResponse(nfcResponse));
+    (async () => {
+      const nfcResponse = await NFCService.initializeTagReader();
+      setResponse(nfcResponse);
+    })();
 
     return () => NFCService.shutdown();
   }, []);
