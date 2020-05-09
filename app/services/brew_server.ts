@@ -2,75 +2,91 @@ import _ from 'lodash';
 
 import AsyncStorage, { StorageKey } from '../services/async_storage';
 import NetworkService from '../services/network';
-import { BrewServerHeartbeat, BrewServerResponse, BrewServerStatus } from '../types/brew_server';
+import { BrewServerResponse, BrewServerStatus } from '../types/brew_server';
 import { generateIPRange } from '../utils/network';
 
-const DEFAULT_PORT = 3000;
+const REST_PORT = 3000;
+const WEBSOCKET_PORT = 4000;
 
-async function checkBrewServerUrl(url: string): Promise<string|null> {
-  const isAvailable = await isServerAvailable(url, true);
-  if (!isAvailable) {
+type BrewServerConfig = {
+  host: string;
+  restPort: number;
+  websocketPort: number;
+};
+
+async function checkWebSocket(url: string): Promise<string|null> {
+  try {
+    // @ts-ignore
+    const ws = new WebSocket(url);
+    return new Promise((resolve) => {
+      ws.onerror = (e: Error) => resolve(null);
+      ws.onopen = () => resolve(url);
+    });
+  } catch (e) {
+    return Promise.resolve(null);
+  }
+}
+
+async function checkBrewServerUrls(serverConfigs: BrewServerConfig[]): Promise<BrewServerConfig|null> {
+  if (_.isEmpty(serverConfigs)) {
     return null;
   }
 
-  return url;
-}
-
-async function checkBrewServerUrls(urls: string[]): Promise<string> {
-  const targetUrl = urls[0];
-  const url = await checkBrewServerUrl(targetUrl);
-  if (url) {
-    return url;
+  const targetConfig = serverConfigs[0];
+  const { host, websocketPort } = targetConfig;
+  const url = await checkWebSocket(`ws://${host}:${websocketPort}`);
+  if (url === null) {
+    return checkBrewServerUrls(_.slice(serverConfigs, 1));
   }
 
-  return checkBrewServerUrls(_.slice(urls, 1));
+  return targetConfig;
 }
 
-async function findBrewServerUrl(port: number): Promise<string|null> {
+async function resolveBrewServerConfig(): Promise<BrewServerConfig|null> {
   const ip = await NetworkService.getIPAddress();
   if (!ip) {
     return null;
   }
 
   const potentialHosts = generateIPRange(ip, 20);
-  const urls = _.map(potentialHosts, (host) => `http://${host}:${port}`);
-  return checkBrewServerUrls(urls);
+  const serverConfigs = _.map(potentialHosts, (host) => ({
+    host,
+    restPort: REST_PORT,
+    websocketPort: WEBSOCKET_PORT,
+  }));
+
+  return checkBrewServerUrls(serverConfigs);
 }
 
-function getBrewServerUrl(): Promise<string|null> {
-  return AsyncStorage.get(StorageKey.BrewServerUrl);
+function getBrewServerConfig(): Promise<string|null> {
+  return AsyncStorage.get(StorageKey.BrewServerConfig);
 }
 
 function getLastUpdate(url: string): Promise<BrewServerResponse|null> {
   return NetworkService.get<BrewServerResponse>(`${url}/update`);
 }
 
-async function isServerAvailable(url: string, suppressError: boolean): Promise<boolean> {
-  const heartbeatResponse = await NetworkService.get<BrewServerHeartbeat>(`${url}/alive`, suppressError);
-  return heartbeatResponse?.alive || false;
-}
-
-async function resolveUrl(): Promise<string> {
-  const url = await getBrewServerUrl();
-  if (url) {
-    return url;
+async function resolveUrl(): Promise<BrewServerConfig> {
+  const savedConfig = await getBrewServerConfig();
+  if (savedConfig) {
+    return JSON.parse(savedConfig);
   }
 
-  const serverUrl = await findBrewServerUrl(DEFAULT_PORT);
-  if (!serverUrl) {
-    throw new Error(`could not find server listening on port ${DEFAULT_PORT}`);
+  const serverConfig = await resolveBrewServerConfig();
+  if (!serverConfig) {
+    throw new Error(`could not find server listening on port ${WEBSOCKET_PORT}`);
   }
 
-  setBrewServerUrl(serverUrl);
-  return serverUrl;
+  setBrewServerUrl(serverConfig);
+  return serverConfig;
 }
 
-function setBrewServerUrl(url: string|null): Promise<void> {
-  if (!url) {
+function setBrewServerUrl(serverConfig: BrewServerConfig|null): Promise<void> {
+  if (!serverConfig) {
     return Promise.resolve();
   }
 
-  return AsyncStorage.set(StorageKey.BrewServerUrl, url);
+  return AsyncStorage.set(StorageKey.BrewServerConfig, JSON.stringify(serverConfig));
 }
 
 function setTargetTemperature(url: string, temperature: number): Promise<BrewServerStatus|null> {

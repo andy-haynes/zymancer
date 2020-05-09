@@ -1,11 +1,9 @@
-export type BrewClient = {
-  getLastUpdate: () => Promise<BrewServerResponse|null>,
-  setTargetTemperature: (temperature: number) => Promise<BrewServerStatus|null> | null,
-  startService: () => Promise<BrewServerStatus|null>,
-};
+import { WebSocketSubject } from 'rxjs/internal-compatibility';
 
-export type BrewServerHeartbeat = {
-  alive: boolean,
+export type BrewClient = {
+  getUpdateSubscription: () => WebSocketSubject<any>,
+  setTargetTemperature: (temperature: number) => Promise<BrewServerStatus|null>,
+  startService: () => Promise<BrewServerStatus|null>,
 };
 
 export type BrewServerResponse = {

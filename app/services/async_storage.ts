@@ -1,7 +1,7 @@
 import AsyncStorage from '../native/async_storage';
 
 export enum StorageKey {
-  BrewServerUrl = 'STORAGE_KEY/BREW_SERVER_URL',
+  BrewServerConfig = 'STORAGE_KEY/BREW_SERVER_CONFIG',
 }
 
 function get(key: StorageKey): Promise<string|null> {

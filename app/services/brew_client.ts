@@ -1,17 +1,22 @@
+import { webSocket } from 'rxjs/webSocket';
+
 import { BrewClient } from '../types/brew_server';
 import BrewServerService from './brew_server';
 
-function createBrewClient(url: string): BrewClient {
-  return {
-    getLastUpdate: () => BrewServerService.getLastUpdate(url),
-    setTargetTemperature: (temperature: number) => BrewServerService.setTargetTemperature(url, temperature),
-    startService: () => BrewServerService.startService(url),
-  };
-}
+async function initializeBrewClient(): Promise<BrewClient> {
+  const { host, websocketPort, restPort } = await BrewServerService.resolveUrl();
+  const restUrl = `http://${host}:${restPort}`;
 
-async function initializeBrewClient() {
-  const url = await BrewServerService.resolveUrl();
-  return createBrewClient(url);
+  const wsSubject = webSocket({
+    url: `ws://${host}:${websocketPort}`,
+    deserializer: ({ data }) => JSON.parse(data),
+  });
+
+  return {
+    getUpdateSubscription: () => wsSubject,
+    setTargetTemperature: (temperature: number) => BrewServerService.setTargetTemperature(restUrl, temperature),
+    startService: () => BrewServerService.startService(restUrl),
+  };
 }
 
 export default {

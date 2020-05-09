@@ -10,9 +10,10 @@ import PID from './pid';
 import Relays from './relays';
 
 const getThermostatResponse = (response: BrewServerResponse|null): ThermostatResponse|null => {
-  if (!response) {
+  if (!response || !response.lastUpdate) {
     return null;
   }
+
   return response.lastUpdate.thermostat;
 };
 
@@ -59,7 +60,7 @@ export default function Brew() {
         <Column>
           <Row>
             <Text style={styles.lastUpdateText}>
-              Last read: {getLastReadTime(lastResponse)?.format() || 'No response'}
+              Last read: {getLastReadTime(lastResponse)?.format('ddd, MMM D YYYY hh:mm:ss') || 'No response'}
             </Text>
           </Row>
           <Row>
@@ -72,10 +73,10 @@ export default function Brew() {
               Last temperature: {getLastTemperature(lastResponse)} ˚C
             </Text>
           </Row>
-          {lastResponse.lastUpdate.relays && (
+          {lastResponse?.lastUpdate?.relays && (
             <Relays relays={lastResponse.lastUpdate.relays} />
           )}
-          {lastResponse?.lastUpdate.thermostat.pid && (
+          {lastResponse?.lastUpdate?.thermostat.pid && (
             <PID pid={lastResponse.lastUpdate.thermostat.pid} />
           )}
         </Column>
