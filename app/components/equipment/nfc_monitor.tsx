@@ -8,7 +8,7 @@ export default function NFCMonitor() {
   const nfcMonitor = useNfcMonitor();
   const {
     error = null,
-    status = null
+    status = null,
   } = nfcMonitor || {};
 
   return (

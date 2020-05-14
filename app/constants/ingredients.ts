@@ -1,3 +1,4 @@
+/* tslint:disable */
 const rawIngredients: any[] = [{
   characteristics: 'Well modified producing consistent extract within the standard ale colour range giving sweet & flavourful worts.',
   dbcg: 80,
