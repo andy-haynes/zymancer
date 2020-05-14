@@ -13,7 +13,7 @@ type Props = {
 };
 
 export default function Fermentables(props: Props) {
-  const fermentables: Fermentable[] = _.reverse(props.fermentables || []);
+  const fermentables: Fermentable[] = _.reverse([...props.fermentables]);
   return (
     <Container>
       <View style={styles.chart}>
