@@ -1,4 +1,4 @@
-import { WebSocketSubject } from 'rxjs/internal-compatibility';
+import { WebSocketSubject } from 'rxjs/webSocket';
 
 export type BrewClient = {
   getUpdateSubscription: () => WebSocketSubject<any>,
@@ -6,11 +6,13 @@ export type BrewClient = {
   startService: () => Promise<BrewServerStatus|null>,
 };
 
+export type BrewServerUpdate = {
+  relays: Relay[],
+  thermostat: ThermostatResponse,
+};
+
 export type BrewServerResponse = {
-  lastUpdate: {
-    relays: Relay[],
-    thermostat: ThermostatResponse,
-  },
+  lastUpdate: BrewServerUpdate,
 };
 
 export type BrewServerStatus = {

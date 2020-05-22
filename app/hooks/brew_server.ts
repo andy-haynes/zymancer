@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 
 import BrewClientService from '../services/brew_client';
-import { BrewClient, BrewServerResponse, BrewServerStatus } from '../types/brew_server';
+import {
+  BrewClient,
+  BrewServerResponse,
+  BrewServerStatus,
+  BrewServerUpdate,
+} from '../types/brew_server';
 
 export function useBrewServerMonitor(): BrewServerStatus {
   const [brewClient, setBrewClient] = useState<BrewClient|null>(null);
@@ -17,7 +22,7 @@ export function useBrewServerMonitor(): BrewServerStatus {
           client.startService();
 
           const brewClientSubscriber = client.getUpdateSubscription();
-          brewClientSubscriber.subscribe((message) => {
+          brewClientSubscriber.subscribe((message: { update: BrewServerUpdate }) => {
             setLastResponse({ lastUpdate: message.update });
           });
         }

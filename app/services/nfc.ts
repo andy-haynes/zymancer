@@ -1,7 +1,12 @@
 import { Observable } from 'rxjs';
 
 import NFCManager from '../native/nfc';
-import { NFCError, NFCResponse, NFCStatus, Tag } from '../types/nfc';
+import {
+  NFCError,
+  NFCResponse,
+  NFCStatus,
+  Tag,
+} from '../types/nfc';
 import Platform from '../utils/platform';
 
 async function isNFCSupported(): Promise<boolean> {
@@ -71,12 +76,7 @@ async function formatTag(): Promise<NFCStatus|NFCError> {
   }
 }
 
-function shutdown(): void {
-  NFCManager.stop();
-}
-
 export default {
   formatTag,
   initializeTagReader,
-  shutdown,
 };

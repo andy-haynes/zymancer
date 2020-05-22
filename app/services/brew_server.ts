@@ -19,7 +19,7 @@ async function checkWebSocket(url: string): Promise<string|null> {
     // @ts-ignore
     const ws = new WebSocket(url);
     return new Promise((resolve) => {
-      ws.onerror = (e: Error) => resolve(null);
+      ws.onerror = () => resolve(null);
       ws.onopen = () => resolve(url);
     });
   } catch (e) {

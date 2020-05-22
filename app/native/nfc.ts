@@ -1,4 +1,9 @@
-import NfcManager, { Ndef, NdefRecord } from 'react-native-nfc-manager';
+import NfcManager, {
+  Ndef,
+  NdefRecord,
+  NfcEvents,
+  TagEvent,
+} from 'react-native-nfc-manager';
 
 import { Tag } from '../types/nfc';
 
@@ -22,16 +27,20 @@ async function isSupported(): Promise<boolean> {
   return NfcManager.isSupported();
 }
 
-function registerTagEvent(event: (tag: Tag) => void, message: string = 'nfc'): void {
-  NfcManager.registerTagEvent(event, message);
+function registerTagEvent(readTag: (tag: Tag) => void): void {
+  NfcManager.registerTagEvent()
+    .then(() => {
+      setTagDiscoverListener(readTag);
+    })
+    .catch((e) => console.warn(e));
 }
 
 async function requestWrite(identifier: number[]): Promise<void> {
   return NfcManager.requestNdefWrite(identifier);
 }
 
-function stop(): void {
-  NfcManager.stop();
+function setTagDiscoverListener(onTagDiscovered: (event: TagEvent) => void) {
+  NfcManager.setEventListener(NfcEvents.DiscoverTag, onTagDiscovered);
 }
 
 export default {
@@ -42,5 +51,4 @@ export default {
   isSupported,
   registerTagEvent,
   requestWrite,
-  stop,
 };
