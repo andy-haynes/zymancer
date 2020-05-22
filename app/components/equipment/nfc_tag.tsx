@@ -1,16 +1,17 @@
 import React from 'react';
 import { Text, View } from 'react-native';
-import { Observable } from 'rxjs';
-
-import {useTagReader } from '../../hooks/nfc';
-import { Tag } from '../../types/nfc';
 
 type TagProps = {
-  tagReader: Observable<Tag>,
+  tagId: string|null,
 };
 
-export default function NFCTag({ tagReader }: TagProps) {
-  const tagId = useTagReader(tagReader);
+export default function NFCTag({ tagId }: TagProps) {
+  if (!tagId) {
+    return (
+      <View />
+    );
+  }
+
   return (
     <View>
       <Text>

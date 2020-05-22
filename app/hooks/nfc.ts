@@ -1,29 +1,29 @@
 import { useEffect, useState } from 'react';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import NFCService from '../services/nfc';
-import { NFCResponse, Tag } from '../types/nfc';
+import {
+  NFCError,
+  NFCTagResponse,
+  NFCStatus,
+  Tag,
+} from '../types/nfc';
 
-export function useNfcMonitor(): NFCResponse|null {
-  const [response, setResponse] = useState<NFCResponse|null>(null);
+export function useTagReader(): NFCTagResponse {
+  const [error, setError] = useState<NFCError|null>(null);
+  const [status, setStatus] = useState<NFCStatus|null>(null);
+  const [tag, setTag] = useState<Tag|null>(null);
+  const [subscription, setSubscription] = useState<Subscription|null>(null);
 
   useEffect(() => {
     (async () => {
       const nfcResponse = await NFCService.initializeTagReader();
-      setResponse(nfcResponse);
+      setError(nfcResponse.error);
+      setStatus(nfcResponse.status);
+      if (nfcResponse.tagReader) {
+        setSubscription(nfcResponse.tagReader.subscribe(setTag));
+      }
     })();
-  }, []);
-
-  return response;
-}
-
-export function useTagReader(tagReader: Observable<Tag>): string|null {
-  const [tagId, setTagId] = useState<string|null>(null);
-  const [subscription, setSubscription] = useState<Subscription|null>(null);
-
-  const setTag = (tag: Tag) => setTagId(tag.id?.toString() || null);
-  useEffect(() => {
-    setSubscription(tagReader.subscribe(setTag));
 
     return () => {
       if (subscription) {
@@ -32,5 +32,5 @@ export function useTagReader(tagReader: Observable<Tag>): string|null {
     };
   }, []);
 
-  return tagId;
+  return { error, status, tag };
 }

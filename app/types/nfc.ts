@@ -1,6 +1,8 @@
 import { TagEvent } from 'react-native-nfc-manager';
 import { Observable } from 'rxjs';
 
+export type Tag = TagEvent;
+
 export enum NFCStatus {
   Formatted = 'Formatted',
   Initialized = 'Initialized',
@@ -14,10 +16,14 @@ export enum NFCError {
   Write = 'Write',
 }
 
-export type NFCResponse = {
+export type NFCInitializeResponse = {
   error: NFCError|null,
   status: NFCStatus|null,
   tagReader: Observable<Tag>,
 };
 
-export type Tag = TagEvent;
+export type NFCTagResponse = {
+  error: NFCError|null,
+  status: NFCStatus|null,
+  tag: Tag|null,
+};

@@ -1,15 +1,11 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { useNfcMonitor } from '../../hooks/nfc';
+import { useTagReader } from '../../hooks/nfc';
 import NFCTag from './nfc_tag';
 
 export default function NFCMonitor() {
-  const nfcMonitor = useNfcMonitor();
-  const {
-    error = null,
-    status = null,
-  } = nfcMonitor || {};
+  const { error, status, tag } = useTagReader();
 
   return (
     <View>
@@ -19,9 +15,7 @@ export default function NFCMonitor() {
       <Text>
         Error: {error}
       </Text>
-      {nfcMonitor && (
-        <NFCTag tagReader={nfcMonitor.tagReader} />
-      )}
+      <NFCTag tagId={tag?.id?.toString() || null} />
     </View>
   );
 }

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import NFCManager from '../native/nfc';
 import {
   NFCError,
-  NFCResponse,
+  NFCInitializeResponse,
   NFCStatus,
   Tag,
 } from '../types/nfc';
@@ -38,7 +38,7 @@ function registerTagObservable(): Observable<Tag> {
   );
 }
 
-async function initializeTagReader(): Promise<NFCResponse> {
+async function initializeTagReader(): Promise<NFCInitializeResponse> {
   const status = await initialize();
   return {
     error: (<any>NFCError)[status] || null,
