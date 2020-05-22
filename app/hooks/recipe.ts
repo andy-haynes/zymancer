@@ -1,12 +1,7 @@
-import { useQuery } from '@apollo/client';
 import _ from 'lodash';
 
-import RandomRecipe from '../graphql/queries/random_recipe';
 import { Recipe } from '../types/recipe';
-
-type RecipeQuery = {
-  randomRecipe: Recipe;
-};
+import { useRandomRecipeQuery } from './queries';
 
 type RecipeResponse = {
   error: string|null;
@@ -15,7 +10,7 @@ type RecipeResponse = {
 };
 
 export function useRandomRecipe(): RecipeResponse {
-  const { loading, error, data } = useQuery<RecipeQuery>(RandomRecipe);
+  const { loading, error, data } = useRandomRecipeQuery();
   return {
     error: _.get(error, 'message', null),
     loading,

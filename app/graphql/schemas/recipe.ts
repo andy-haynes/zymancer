@@ -113,7 +113,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    randomRecipe: () => RecipeService.getRecipe(),
+    randomRecipe: () => RecipeService.getRandomRecipe(),
   },
 };
 
