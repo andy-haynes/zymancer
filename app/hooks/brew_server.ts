@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Subscription } from 'rxjs';
 
 import BrewClientService from '../services/brew_client';
 import {
@@ -11,25 +12,36 @@ import {
 export function useBrewServerMonitor(): BrewServerStatus {
   const [brewClient, setBrewClient] = useState<BrewClient|null>(null);
   const [brewServerError, setBrewServerError] = useState<Error|null>(null);
+  const [brewSubscription, setBrewSubscription] = useState<Subscription|null>(null);
   const [lastResponse, setLastResponse] = useState<BrewServerResponse|null>(null);
 
   useEffect(() => {
     (async () => {
       try {
         const client = await BrewClientService.initializeBrewClient();
-        if (client) {
-          setBrewClient(client);
-          client.startService();
-
-          const brewClientSubscriber = client.getUpdateSubscription();
-          brewClientSubscriber.subscribe((message: { update: BrewServerUpdate }) => {
-            setLastResponse({ lastUpdate: message.update });
-          });
+        if (!client) {
+          return;
         }
+
+        setBrewClient(client);
+        await client.startService();
+
+        setBrewSubscription(
+          client.getUpdateSubscription()
+            .subscribe((message: { update: BrewServerUpdate }) =>
+              setLastResponse({ lastUpdate: message.update })
+            )
+        );
       } catch (e) {
         setBrewServerError(e);
       }
     })();
+
+    return () => {
+      if (brewSubscription) {
+        brewSubscription.unsubscribe();
+      }
+    };
   }, []);
 
   return {
