@@ -5,19 +5,16 @@ import { ComponentStyle } from '../../types/react';
 import styles from './styles/button.style';
 
 type Props = {
-  buttonStyle?: ComponentStyle,
-  onPress: () => void,
-  text: string,
-  textStyle?: ComponentStyle,
+  buttonStyle?: ComponentStyle;
+  children: React.ReactNode;
+  onPress: () => void;
 };
 
-export default function Button({ buttonStyle, onPress, text, textStyle }: Props) {
+export default function Button({ buttonStyle, children, onPress }: Props) {
   return (
     <TouchableOpacity onPress={onPress}>
       <View style={[styles.button, buttonStyle]}>
-        <Text style={[styles.buttonText, textStyle]}>
-          {text}
-        </Text>
+        {children}
       </View>
     </TouchableOpacity>
   );

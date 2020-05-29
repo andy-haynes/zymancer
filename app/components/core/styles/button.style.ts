@@ -11,9 +11,4 @@ export default StyleSheet.create({
     flex: 1,
     marginHorizontal: 8,
   },
-  buttonText: {
-    color: Colors.grayDark,
-    fontSize: 18,
-    padding: 8,
-  },
 });
