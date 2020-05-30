@@ -5,9 +5,9 @@ import NavigationService from '../../services/navigation';
 import { ImageNavRoute } from '../../types/routes';
 import styles from './styles/image_row.style';
 
-interface Props {
+type Props = {
   navOption: ImageNavRoute;
-}
+};
 
 export default function ImageRow({ navOption }: Props) {
   return (
