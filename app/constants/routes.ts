@@ -16,13 +16,17 @@ export const routes: ImageNavRoute[] = [{
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Saccharomyces_cerevisiae_SEM.jpg',
   label: 'Fermenting',
+  screen: ScreenName.NotImplemented,
 }, {
   image: 'https://c.pxhere.com/photos/8c/9b/alcohol_barrel_beer_brewery_business_containers_factory_industry-1522811.jpg!d',
   label: 'Packaging',
+  screen: ScreenName.NotImplemented,
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/WortHydrometer.JPG',
   label: 'Tools',
+  screen: ScreenName.NotImplemented,
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7d/Malt_en_grain.JPG/1600px-Malt_en_grain.JPG',
   label: 'Ingredients',
+  screen: ScreenName.NotImplemented,
 }];

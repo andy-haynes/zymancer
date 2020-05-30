@@ -6,6 +6,7 @@ import Root from './root';
 export default {
   Brew,
   Equipment,
+  NotImplemented: Root,
   Recipes,
   Root,
 };

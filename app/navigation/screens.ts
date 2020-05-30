@@ -6,4 +6,5 @@ export default {
     [ScreenName.Recipes]: Screen.Recipes,
     [ScreenName.Equipment]: Screen.Equipment,
     [ScreenName.Brew]: Screen.Brew,
+    [ScreenName.NotImplemented]: Screen.NotImplemented,
   };
