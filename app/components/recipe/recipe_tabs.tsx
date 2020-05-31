@@ -1,11 +1,11 @@
 import _ from 'lodash';
 import React, { useState } from 'react';
-import { Image } from 'react-native';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import colors from '../../theme/colors';
 import { Recipe } from '../../types/recipe';
 import { getWidth } from '../../utils/dimensions';
+import { Image } from '../core';
 import {
   getRouteImage,
   getRouteIndex,
