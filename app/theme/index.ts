@@ -1,7 +1,5 @@
 import Colors from './colors';
 import Font from './font';
 
-export default {
-  Colors,
-  Font,
-};
+export const colors = Colors;
+export const font = Font;

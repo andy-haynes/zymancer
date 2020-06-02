@@ -1,8 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-import Theme from '../../../../theme';
-
-const { Font } = Theme;
+import { font } from '../../../../theme';
 
 export default StyleSheet.create({
   color: {
@@ -10,10 +8,9 @@ export default StyleSheet.create({
     width: 20,
   },
   name: {
-    fontSize: Font.size.large,
+    fontSize: font.size.large,
   },
   row: {
-    flexDirection: 'row',
     height: 90,
     margin: 8,
   },

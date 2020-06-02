@@ -1,17 +1,15 @@
 import { StyleSheet } from 'react-native';
 
-import Theme from '../../../theme';
+import { colors, font } from '../../../theme';
 import { getWidth } from '../../../utils/dimensions';
-
-const { Colors, Font } = Theme;
 
 export default StyleSheet.create({
   imageBox: {
     marginTop: 1,
   },
   imageLabel: {
-    backgroundColor: Colors.grayDark,
-    borderColor: Colors.gray,
+    backgroundColor: colors.grayDark,
+    borderColor: colors.gray,
     borderWidth: 1,
     bottom: 8,
     paddingLeft: 12,
@@ -26,8 +24,8 @@ export default StyleSheet.create({
     width: getWidth(),
   },
   labelText: {
-    color: Colors.grayLight,
-    fontSize: Font.size.medium,
+    color: colors.grayLight,
+    fontSize: font.size.medium,
     fontVariant: ['small-caps'],
     fontWeight: '600',
   },
