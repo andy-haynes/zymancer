@@ -17,7 +17,7 @@ export default function ButtonComponent({
 }: Props) {
   return (
     <Button
-      buttonStyle={{ ...buttonStyle, ...styles.button }}
+      buttonStyle={{ ...styles.button, ...buttonStyle }}
       onPress={onPress}
       title={label}
     />
