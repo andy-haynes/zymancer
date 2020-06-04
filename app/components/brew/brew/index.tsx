@@ -81,11 +81,10 @@ export default function Brew() {
           )}
         </Column>
       )}
-      <Button onPress={() => setTargetTemperature(54)}>
-        <Text>
-          Set Temperature
-        </Text>
-      </Button>
+      <Button
+        label='Set Temperature'
+        onPress={() => setTargetTemperature(54)}
+      />
     </Container>
   );
 }
