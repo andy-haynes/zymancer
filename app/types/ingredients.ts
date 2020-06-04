@@ -28,6 +28,7 @@ export type Fermentable = {
   color: string;
   gravity: Gravity|null;
   lovibond: number|null,
+  srm: number|null;
   weight: Measurement;
 };
 
