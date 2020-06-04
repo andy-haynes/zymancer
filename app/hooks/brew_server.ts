@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Subscription } from 'rxjs';
 
+import { MOCK_STATUS } from '../../tests/fixtures/brew_server_response';
 import BrewClientService from '../services/brew_client';
 import {
   BrewClient,
@@ -9,7 +10,14 @@ import {
   BrewServerUpdate,
 } from '../types/brew_server';
 
-export function useBrewServerMonitor(): BrewServerStatus {
+export function useBrewServerMonitor({
+ useMockStatus = false,
+}: { useMockStatus?: boolean }): BrewServerStatus {
+  // TODO mock this in apollo client
+  if (useMockStatus) {
+    return MOCK_STATUS;
+  }
+
   const [brewClient, setBrewClient] = useState<BrewClient|null>(null);
   const [brewServerError, setBrewServerError] = useState<Error|null>(null);
   const [brewSubscription, setBrewSubscription] = useState<Subscription|null>(null);

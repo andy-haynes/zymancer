@@ -45,7 +45,7 @@ export default function Brew() {
     brewServerError,
     lastResponse,
     setTargetTemperature,
-  } = useBrewServerMonitor();
+  } = useBrewServerMonitor({});
 
   return (
     <Container>
