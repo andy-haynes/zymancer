@@ -22,6 +22,7 @@ import {
   Yeast,
 } from '../types/ingredients';
 import { Recipe } from '../types/recipe';
+import { Style } from '../types/style';
 import { Gravity, Range } from '../types/zymath';
 
 function randomByIncrement(min: number, max: number, increment: number): number {
@@ -186,17 +187,30 @@ function orderIngredients(ingredients: Ingredient[], primarySort: string): Ingre
   );
 }
 
+function randomizeStyle(): Style {
+  return bjcpStyles[_.random(0, bjcpStyles.length - 1)];
+}
+
+export const randomizeRecipeList = async (): Promise<Recipe[]> => {
+  const recipeIndices = _.range(_.random(4, 12));
+  return await Promise.all(recipeIndices.map(async (n) => {
+    return {
+      ...await randomizeRecipe(),
+      name: `the ${n}th best beer`,
+    };
+  }));
+};
+
 export const randomizeRecipe = async (): Promise<Recipe> => {
   const ingredients = await getIngredients();
-  const lastBrewed = moment().subtract(_.random(3, 432), 'days');
+  const lastBrewed = moment().subtract(_.random(3, 432), 'days').format();
   const fermentables = randomizeIngredientType(ingredients, IngredientType.Malt);
   const hops = randomizeIngredientType(ingredients, IngredientType.Hop);
   const yeast = randomizeIngredientType(ingredients, IngredientType.Yeast);
-  const style = bjcpStyles[_.random(0, bjcpStyles.length - 1)];
 
   return {
     name: 'Golden Brett Ale',
-    style,
+    style: randomizeStyle(),
     lastBrewed,
     fermentables: <Fermentable[]>orderIngredients(
       randomizeFermentables(fermentables),

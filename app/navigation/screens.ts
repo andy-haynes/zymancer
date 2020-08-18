@@ -4,6 +4,7 @@ import Screen from '../screens';
 export default {
     [ScreenName.Root]: Screen.Root,
     [ScreenName.Recipes]: Screen.Recipes,
+    [ScreenName.Recipe]: Screen.Recipe,
     [ScreenName.Equipment]: Screen.Equipment,
     [ScreenName.Brew]: Screen.Brew,
     [ScreenName.NotImplemented]: Screen.NotImplemented,

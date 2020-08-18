@@ -1,11 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-import { useRandomRecipe } from '../../hooks/recipe';
-import RecipeTabs from './recipe_tabs';
+import { useRecipeList } from '../../hooks/recipe';
+import { Column } from '../core';
+import RecipeRow from './recipe_row';
 
 export default function Recipes() {
-  const { loading, error, recipe } = useRandomRecipe();
+  const { loading, error, recipes } = useRecipeList();
 
   if (loading) {
     return (
@@ -18,17 +19,34 @@ export default function Recipes() {
   if (error) {
     console.warn(error);
     return (
-      <Text>Could not load recipe</Text>
+      <Text>
+        Could not load recipes
+      </Text>
     );
   }
 
-  if (!recipe) {
+  if (!recipes) {
     return (
       <View />
     );
   }
 
+  if (!recipes.length) {
+    return (
+      <Text>
+        No recipes found
+      </Text>
+    );
+  }
+
   return (
-    <RecipeTabs recipe={recipe} />
+    <Column>
+      {recipes.map((recipe) => (
+        <RecipeRow
+          key={recipe.name}
+          recipe={recipe}
+        />
+      ))}
+    </Column>
   );
 }
