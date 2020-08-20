@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 import { Recipe } from '../types/recipe';
 import { useRandomRecipeQuery, useRandomRecipesQuery } from './queries';
 
@@ -10,25 +8,27 @@ type QueryResponse = {
 
 type RecipeResponse = QueryResponse & {
   recipe: Recipe|null;
+  recipeId: string;
 };
 
 type RecipesResponse = QueryResponse & {
   recipes: Recipe[]|null;
 };
 
-export function useRecipe(): RecipeResponse {
+export function useRecipe(recipeId: string): RecipeResponse {
   const { loading, error, data } = useRandomRecipeQuery();
   return {
-    error: _.get(error, 'message', null),
+    error: error?.message || null,
     loading,
     recipe: data?.randomRecipe || null,
+    recipeId,
   };
 }
 
 export function useRecipeList(): RecipesResponse {
   const { loading, error, data } = useRandomRecipesQuery();
   return {
-    error: _.get(error, 'message', null),
+    error: error?.message || null,
     loading,
     recipes: data?.recipes || null,
   };

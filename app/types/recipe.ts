@@ -3,6 +3,7 @@ import { Mash } from './mash';
 import { Style } from './style';
 
 export type Recipe = {
+  id: string;
   name: string;
   style: Style|null;
   fermentables: Fermentable[];

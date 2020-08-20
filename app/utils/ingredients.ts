@@ -209,6 +209,7 @@ export const randomizeRecipe = async (): Promise<Recipe> => {
   const yeast = randomizeIngredientType(ingredients, IngredientType.Yeast);
 
   return {
+    id: 'uuid',
     name: 'Golden Brett Ale',
     style: randomizeStyle(),
     lastBrewed,

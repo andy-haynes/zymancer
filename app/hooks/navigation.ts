@@ -1,12 +1,14 @@
+import { useNavigation } from '@react-navigation/native';
+
 import { ScreenName } from '../constants/navigation';
-import NavigationService from '../services/navigation';
 
 type Navigator = {
   navigateToScreen: (screen: ScreenName, params?: any) => void
 };
 
 export function useNavigator(): Navigator {
+  const navigation = useNavigation();
   return {
-    navigateToScreen: (screen: ScreenName, params?: any) => NavigationService.navigate(screen, params),
+    navigateToScreen: (screen: ScreenName, params?: any) => navigation.navigate(screen, params),
   };
 }

@@ -18,7 +18,7 @@ export default function Recipes({ recipe }: Props) {
   return (
     <TouchableRow
       key={recipe.name}
-      onPress={() => navigateToScreen(ScreenName.Recipe, { recipe })}
+      onPress={() => navigateToScreen(ScreenName.Recipe, { recipeId: recipe.id })}
       rowStyle={styles.recipeRow}
     >
       <Column>

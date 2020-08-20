@@ -4,8 +4,12 @@ import { Text, View } from 'react-native';
 import { useRecipe } from '../../hooks/recipe';
 import RecipeTabs from './recipe_tabs';
 
-export default function Recipe() {
-  const { loading, error, recipe } = useRecipe();
+type Props = {
+  recipeId: string;
+};
+
+export default function Recipe({ recipeId }: Props) {
+  const { loading, error, recipe } = useRecipe(recipeId);
 
   if (loading) {
     return (
