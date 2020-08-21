@@ -6,6 +6,7 @@ import RecipeService from '../../services/recipe';
 const typeDefs = gql`
   type MeasurementUnit {
     name: String
+    shortName: String
     unit: String
   }
 
@@ -97,6 +98,7 @@ const typeDefs = gql`
   }
 
   type Recipe {
+    id: String!
     name: String!
     style: RecipeStyle
     lastBrewed: String

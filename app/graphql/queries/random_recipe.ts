@@ -3,6 +3,7 @@ import { gql } from '@apollo/client';
 export default gql`
   {
     randomRecipe {
+      id,
       name
       style
       lastBrewed
@@ -16,6 +17,7 @@ export default gql`
         weight {
           unit {
             name
+            shortName
           }
           value
         }
@@ -26,6 +28,7 @@ export default gql`
           quantity {
             unit {
               name
+              shortName
             }
             value
           }
