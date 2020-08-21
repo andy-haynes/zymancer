@@ -7,6 +7,15 @@ type Props = {
   fermentables: Fermentable[];
 };
 
+type DataPoint = {
+  x: number;
+  y: number;
+};
+
+type ChartElement = {
+  datum: DataPoint;
+};
+
 export default function FermentableChart({ fermentables }: Props) {
   return (
     <VictoryPie
@@ -14,10 +23,11 @@ export default function FermentableChart({ fermentables }: Props) {
       data={fermentables.map((fermentable, i) => ({
         x: i,
         y: fermentable.weight.value,
-        label: fermentable.name,
       }))}
-      innerRadius={50}
-      width={300}
+      innerRadius={60}
+      labels={() => ''}
+      radius={({ datum }: ChartElement) => 60 + datum.y * 5}
+      width={350}
     />
   );
 }
