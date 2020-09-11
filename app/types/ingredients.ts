@@ -50,6 +50,7 @@ export type Hop = {
 };
 
 export type Yeast = {
+  name: string;
   code: string;
   pitchRate?: number;
   pitchTemp?: Measurement;

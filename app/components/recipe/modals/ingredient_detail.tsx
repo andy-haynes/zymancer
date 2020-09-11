@@ -1,15 +1,16 @@
 import React from 'react';
 
 import { IngredientType } from '../../../constants/recipe';
+import { Ingredient } from '../../../types/ingredients';
 import { icons } from '../../../images';
 import { Image, Modal } from '../../core';
 
 type Props = {
   children: React.ReactNode;
+  ingredient: Ingredient|null;
   ingredientType: IngredientType;
-  isVisible: boolean;
   name: string;
-  onDismissModal: () => void;
+  unselectIngredient: () => void;
 };
 
 function getHeaderImage(ingredientType: IngredientType): number {
@@ -22,10 +23,10 @@ function getHeaderImage(ingredientType: IngredientType): number {
 
 export default function IngredientDetailModal({
   children,
+  ingredient,
   ingredientType,
-  isVisible,
   name,
-  onDismissModal,
+  unselectIngredient,
 }: Props) {
   return (
     <Modal
@@ -35,8 +36,8 @@ export default function IngredientDetailModal({
           style={{ height: 24, width: 24 }}
         />
       )}
-      isVisible={isVisible}
-      onDismissModal={onDismissModal}
+      isVisible={ingredient !== null}
+      onDismissModal={unselectIngredient}
       title={name}
     >
       {children}

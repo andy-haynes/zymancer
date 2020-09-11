@@ -7,26 +7,18 @@ import { getHeight } from '../../../utils/dimensions';
 export default StyleSheet.create({
   body: {
     padding: 4,
-  },
-  closeIcon: {
-    color: colors.offWhite,
-  },
-  closeIconContainer: {
-    position: 'absolute',
-    right: 10,
-    top: 16,
+    height: '40%',
   },
   header: {
     backgroundColor: colors.grayDark,
     borderTopLeftRadius: 4,
     borderTopRightRadius: 4,
-    paddingHorizontal: 32,
+    // paddingHorizontal: 12,
     paddingVertical: 8,
   },
   headerImage: {
-    left: -20,
-    position: 'relative',
-    top: 8,
+    flex: 1,
+    margin: 8,
   },
   modal: {
     backgroundColor: colors.offWhite,
@@ -36,9 +28,9 @@ export default StyleSheet.create({
   title: {
     color: colors.offWhite,
     fontSize: font.size.larger,
-    textAlign: 'center',
+    marginTop: 2,
   },
   titleContainer: {
-    position: 'relative',
+    flex: 7,
   },
 });

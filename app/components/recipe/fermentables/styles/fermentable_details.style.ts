@@ -16,7 +16,7 @@ export default StyleSheet.create({
   fermentableColor: {
     borderColor: colors.grayDark,
     borderWidth: 1,
-    height: '90%',
-    width: '90%',
+    height: '80%',
+    width: '60%',
   },
 });

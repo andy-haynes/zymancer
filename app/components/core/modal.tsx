@@ -1,9 +1,8 @@
 import React from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
 
-import Colors from '../../theme/colors';
-import Icon from './icon';
+import Column from './column';
 import Row from './row';
 import styles from './styles/modal.style';
 
@@ -26,29 +25,18 @@ export default function ModalComponent({
     <Modal
       isVisible={isVisible}
       onModalHide={onDismissModal}
+      onBackdropPress={onDismissModal}
     >
       <View style={styles.modal}>
         <Row style={styles.header}>
-          <View style={styles.headerImage}>
+          <Column style={styles.headerImage}>
             {headerImage}
-          </View>
-          <View style={styles.titleContainer}>
+          </Column>
+          <Column style={styles.titleContainer}>
             <Text style={styles.title}>
               {title}
             </Text>
-          </View>
-          <View style={styles.closeIconContainer}>
-            <TouchableOpacity
-              onPress={onDismissModal}
-            >
-              <Icon
-                color={Colors.offWhite}
-                name='cancel'
-                size={24}
-                type='material'
-              />
-            </TouchableOpacity>
-          </View>
+          </Column>
         </Row>
         <ScrollView style={styles.body}>
           {children}
