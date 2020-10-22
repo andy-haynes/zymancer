@@ -1,5 +1,5 @@
 import { HopAdditionType, HopFormType } from '../constants/recipe';
-import { Gravity, Measurement } from './zymath';
+import { Measurement } from './zymath';
 
 export type RawIngredient = {
   name: string,
@@ -26,7 +26,7 @@ export type RawIngredient = {
 export type Fermentable = {
   name: string;
   color: string;
-  gravity: Gravity|null;
+  gravity: string|null;
   lovibond: number|null,
   srm: number|null;
   weight: Measurement;

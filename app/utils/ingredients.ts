@@ -23,7 +23,7 @@ import {
 } from '../types/ingredients';
 import { Recipe } from '../types/recipe';
 import { Style } from '../types/style';
-import { Gravity, Range } from '../types/zymath';
+import { Range } from '../types/zymath';
 
 function randomByIncrement(min: number, max: number, increment: number): number {
   return min + (increment * _.random(0, max / increment));
@@ -108,7 +108,13 @@ function randomizeFermentables(grains: RawIngredient[]): Fermentable[] {
     const lovibond = _.parseInt(grain?.lovibond || '') || 0;
     const srm = _.round(1.4922 * Math.pow(lovibond, 0.6859));
     const srmValue = _.min([srm, 40]) || 0;
-    const gravity = grain?.gravity;
+    let gravity = null;
+    if (grain?.gravity) {
+      gravity = grain.gravity === 1
+        ? '1.000'
+        : `${grain?.gravity}000`.substring(0, 5);
+    }
+
     return {
       ..._.pick(grain, 'name'),
       weight: {
@@ -116,7 +122,7 @@ function randomizeFermentables(grains: RawIngredient[]): Fermentable[] {
         unit: Units.Pound,
       },
       color: _.get(SRMColors, srmValue),
-      gravity: gravity ? new Gravity(gravity) : null,
+      gravity,
       lovibond,
       srm,
     };

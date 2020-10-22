@@ -15,7 +15,7 @@ export default function FermentableDetails({ fermentable }: Props) {
     <Column style={styles.detailContainer}>
       <Row style={styles.detailRow}>
         <Column style={styles.detail}>
-          <FermentableDetail label='Gravity' value={fermentable.gravity?.value} />
+          <FermentableDetail label='Gravity' value={fermentable.gravity} />
         </Column>
         <Column style={styles.detail}>
           <FermentableDetail label='Lovibond' value={fermentable.lovibond} />

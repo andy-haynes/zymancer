@@ -9,9 +9,7 @@ export default gql`
       lastBrewed
       fermentables {
         color
-        gravity {
-          value
-        }
+        gravity
         lovibond
         name
         weight {

@@ -26,7 +26,7 @@ export default function FermentableRow({ fermentable, selectFermentable }: Props
             </Row>
             <Row>
               <Text style={styles.gravityText}>
-                {fermentable.gravity?.value}
+                {fermentable.gravity}
               </Text>
             </Row>
           </Column>

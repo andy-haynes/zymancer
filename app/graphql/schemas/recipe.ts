@@ -15,10 +15,6 @@ const typeDefs = gql`
     value: Float!
   }
 
-  type Gravity {
-    value: String
-  }
-
   type HopAddition {
     minutes: Int
     quantity: Measurement
@@ -29,7 +25,7 @@ const typeDefs = gql`
 
   type Fermentable {
     color: String
-    gravity: Gravity
+    gravity: String
     lovibond: Int
     name: String!
     weight: Measurement

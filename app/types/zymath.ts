@@ -12,23 +12,6 @@ export type Measurement = {
   unit: Unit;
 };
 
-export class Gravity {
-  constructor(
-    public value: number
-  ) {}
-
-  get points() {
-    return _.round((1 - this.value) * 100);
-  }
-
-  toString() {
-    if (this.value === 1) {
-      return '1.000';
-    }
-    return `${this.value}000`.substring(0, 5);
-  }
-}
-
 export class Range {
   constructor(
     public low: number,
