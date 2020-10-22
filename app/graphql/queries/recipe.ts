@@ -12,6 +12,7 @@ export default gql`
         gravity
         lovibond
         name
+        srm
         weight {
           unit {
             name

@@ -28,6 +28,7 @@ const typeDefs = gql`
     gravity: String
     lovibond: Int
     name: String!
+    srm: Float
     weight: Measurement
   }
 
