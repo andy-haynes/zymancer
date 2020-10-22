@@ -109,14 +109,14 @@ const typeDefs = gql`
   }
 
   type Query {
-    randomRecipe: Recipe
+    recipe(recipeId: String): Recipe
     recipes: [Recipe]
   }
 `;
 
 const resolvers = {
   Query: {
-    randomRecipe: () => RecipeService.getRandomRecipe(),
+    recipe: (recipeId: string) => RecipeService.getRandomRecipe(),
     recipes: () => RecipeService.listRecipes(),
   },
 };

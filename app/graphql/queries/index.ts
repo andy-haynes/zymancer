@@ -1,7 +1,7 @@
-import randomRecipe from './random_recipe';
+import recipe from './recipe';
 import recipes from './recipes';
 
 export default {
-  randomRecipe,
+  recipe,
   recipes,
 };

@@ -1,5 +1,5 @@
 import { Recipe } from '../types/recipe';
-import { useRandomRecipeQuery, useRandomRecipesQuery } from './queries';
+import { useRecipeQuery, useRecipesQuery } from './queries';
 
 type QueryResponse = {
   error: string|null;
@@ -8,7 +8,6 @@ type QueryResponse = {
 
 type RecipeResponse = QueryResponse & {
   recipe: Recipe|null;
-  recipeId: string;
 };
 
 type RecipesResponse = QueryResponse & {
@@ -16,17 +15,16 @@ type RecipesResponse = QueryResponse & {
 };
 
 export function useRecipe(recipeId: string): RecipeResponse {
-  const { loading, error, data } = useRandomRecipeQuery();
+  const { loading, error, data } = useRecipeQuery(recipeId);
   return {
     error: error?.message || null,
     loading,
-    recipe: data?.randomRecipe || null,
-    recipeId,
+    recipe: data?.recipe || null,
   };
 }
 
 export function useRecipeList(): RecipesResponse {
-  const { loading, error, data } = useRandomRecipesQuery();
+  const { loading, error, data } = useRecipesQuery();
   return {
     error: error?.message || null,
     loading,
