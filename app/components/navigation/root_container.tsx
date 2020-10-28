@@ -37,6 +37,11 @@ export default function NavContainer() {
           component={Screens.Equipment}
           options={{ title: 'Equipment' }}
         />
+        <Stack.Screen
+          name={ScreenName.Fermentation}
+          component={Screens.Fermentation}
+          options={{ title: 'Fermentation' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

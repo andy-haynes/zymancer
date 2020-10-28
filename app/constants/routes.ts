@@ -15,8 +15,8 @@ export const routes: ImageNavRoute[] = [{
   screen: ScreenName.Equipment,
 }, {
   image: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Saccharomyces_cerevisiae_SEM.jpg',
-  label: 'Fermenting',
-  screen: ScreenName.NotImplemented,
+  label: 'Fermentation',
+  screen: ScreenName.Fermentation,
 }, {
   image: 'https://c.pxhere.com/photos/8c/9b/alcohol_barrel_beer_brewery_business_containers_factory_industry-1522811.jpg!d',
   label: 'Packaging',
