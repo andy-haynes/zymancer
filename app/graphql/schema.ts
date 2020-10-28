@@ -1,28 +1,9 @@
 import { gql } from '@apollo/client';
 import { makeExecutableSchema } from 'graphql-tools';
 
-import RecipeService from '../../services/recipe';
+import RecipeService from '../services/recipe';
 
 const typeDefs = gql`
-  type MeasurementUnit {
-    name: String
-    shortName: String
-    unit: String
-  }
-
-  type Measurement {
-    unit: MeasurementUnit
-    value: Float!
-  }
-
-  type HopAddition {
-    minutes: Int
-    quantity: Measurement
-    type: String
-    ibu: Float
-    utilization: Float
-  }
-
   type Fermentable {
     color: String
     gravity: String
@@ -41,18 +22,20 @@ const typeDefs = gql`
     form: String
   }
 
-  type Yeast {
-    name: String!
-    code: String
-    pitchRate: Float
-    pitchTemp: Measurement
-    quantity: Int
-    targetCellCount: Int
-    styles: [String]
+  type HopAddition {
+    minutes: Int
+    quantity: Measurement
+    type: String
+    ibu: Float
+    utilization: Float
   }
 
   type MashLoss {
     name: String!
+  }
+
+  type MashProfile {
+    schedule: MashSchedule
   }
 
   type MashRest {
@@ -68,8 +51,26 @@ const typeDefs = gql`
     sparge: String
   }
 
-  type MashProfile {
-    schedule: MashSchedule
+  type Measurement {
+    unit: MeasurementUnit
+    value: Float!
+  }
+
+  type MeasurementUnit {
+    name: String
+    shortName: String
+    unit: String
+  }
+
+  type Recipe {
+    id: String!
+    name: String!
+    style: RecipeStyle
+    lastBrewed: String
+    fermentables: [Fermentable]
+    hops: [Hop]
+    yeast: [Yeast]
+    mash: MashProfile
   }
 
   type RecipeStyle {
@@ -94,15 +95,14 @@ const typeDefs = gql`
     tags: [String]
   }
 
-  type Recipe {
-    id: String!
+  type Yeast {
     name: String!
-    style: RecipeStyle
-    lastBrewed: String
-    fermentables: [Fermentable]
-    hops: [Hop]
-    yeast: [Yeast]
-    mash: MashProfile
+    code: String
+    pitchRate: Float
+    pitchTemp: Measurement
+    quantity: Int
+    targetCellCount: Int
+    styles: [String]
   }
 
   type Query {

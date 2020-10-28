@@ -1,11 +1,11 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { SchemaLink } from '@apollo/link-schema';
 
-import recipeSchema from './schemas/recipe';
+import schema from './schema';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new SchemaLink({ schema: recipeSchema }),
+  link: new SchemaLink({ schema }),
 });
 
 export default client;
