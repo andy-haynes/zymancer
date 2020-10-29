@@ -1,9 +1,30 @@
 import { gql } from '@apollo/client';
 import { makeExecutableSchema } from 'graphql-tools';
 
+import FermentationService from '../services/fermentation';
 import RecipeService from '../services/recipe';
 
 const typeDefs = gql`
+  scalar Date
+
+  type BrewInstance {
+    brewDate: DateRange
+    notes: [Note]
+  }
+
+  type DateRange {
+    startDate: Date!
+    endDate: Date
+  }
+
+  type Ferment {
+    id: String!
+    recipe: Recipe
+    brewInstance: BrewInstance
+    dateRange: DateRange!
+    notes: [Note]
+  }
+
   type Fermentable {
     color: String
     gravity: String
@@ -62,6 +83,11 @@ const typeDefs = gql`
     unit: String
   }
 
+  type Note {
+    timestamp: Date!
+    note: String!
+  }
+
   type Recipe {
     id: String!
     name: String!
@@ -106,6 +132,8 @@ const typeDefs = gql`
   }
 
   type Query {
+    ferment: Ferment
+    ferments: [Ferment]
     recipe(recipeId: String): Recipe
     recipes: [Recipe]
   }
@@ -113,6 +141,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
+    ferment: (fermentId: string) => FermentationService.getFerment(fermentId),
+    ferments: () => FermentationService.listFerments(),
     recipe: (recipeId: string) => RecipeService.getRandomRecipe(),
     recipes: () => RecipeService.listRecipes(),
   },
