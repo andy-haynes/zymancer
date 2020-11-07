@@ -1,11 +1,10 @@
 import { ApolloClient, InMemoryCache } from '@apollo/client';
-import { SchemaLink } from '@apollo/link-schema';
 
-import schema from './schema';
+import { getApolloServerUrl } from '../utils/environment';
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new SchemaLink({ schema }),
+  uri: getApolloServerUrl(),
 });
 
 export default client;

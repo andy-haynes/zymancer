@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 export default gql`
   {
-    ferment {
+    ferment(fermentId: $fermentId) {
       recipe {
         name
       }

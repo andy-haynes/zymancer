@@ -3,11 +3,16 @@ import { gql } from '@apollo/client';
 export default gql`
   {
     recipes {
+      id
       name
       style {
         name
       }
-      lastBrewed
+      brewInstances {
+          dateRange {
+              startDate
+          }
+      }
     }
   }
 `;

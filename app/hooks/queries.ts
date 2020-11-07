@@ -21,7 +21,9 @@ type ListRecipesQuery = {
 };
 
 export function useFermentQuery(fermentId: string): QueryResult<GetFermentQuery> {
-  return useQuery<GetFermentQuery>(queries.ferment);
+  return useQuery<GetFermentQuery>(queries.ferment, {
+    variables: { fermentId },
+  });
 }
 
 export function useFermentsQuery(): QueryResult<ListFermentsQuery> {
