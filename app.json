@@ -1,4 +1,9 @@
 {
   "name": "zymancer",
-  "displayName": "zymancer"
+  "displayName": "zymancer",
+  "env": {
+    "APOLLO_SERVER_URL": {
+      "value": "http://192.168.0.105:4000"
+    }
+  }
 }
