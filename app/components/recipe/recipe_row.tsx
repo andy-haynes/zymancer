@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import { ScreenName } from '../../constants/navigation';
 import { useNavigator } from '../../hooks/navigation';
 import { Column, TouchableRow } from '../core';
-import { Recipe } from '../../types/recipe';
+import { Recipe } from '../../types';
 import styles from './styles/recipe_row.style';
 
 type Props = {
@@ -35,7 +35,7 @@ export default function Recipes({ recipe }: Props) {
       </Column>
       <Column style={styles.recipeLastBrewed}>
         <Text style={styles.recipeLastBrewedText}>
-          {moment(recipe.lastBrewed).format('D MMM YYYY')}
+          {moment(recipe.brewInstances?.[0]?.dateRange?.startDate).format('D MMM YYYY')}
         </Text>
       </Column>
     </TouchableRow>

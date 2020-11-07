@@ -1,4 +1,4 @@
-import { Recipe } from '../types/recipe';
+import { Recipe } from '../types';
 import { useRecipeQuery, useRecipesQuery } from './queries';
 
 type QueryResponse = {

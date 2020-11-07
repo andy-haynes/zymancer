@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 
 import { IngredientType } from '../../../constants/recipe';
-import { Fermentable } from '../../../types/ingredients';
+import { Fermentable } from '../../../types';
 import { Column } from '../../core';
 import IngredientDetailModal from '../modals/ingredient_detail';
 import FermentableChart from './fermentable_chart';

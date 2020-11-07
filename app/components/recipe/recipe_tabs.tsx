@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { TabBar, TabView } from 'react-native-tab-view';
 
 import colors from '../../theme/colors';
-import { Recipe } from '../../types/recipe';
+import { Recipe } from '../../types';
 import { getWidth } from '../../utils/dimensions';
 import { Image } from '../core';
 import {

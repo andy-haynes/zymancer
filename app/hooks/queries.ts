@@ -1,8 +1,7 @@
 import { QueryResult, useQuery } from '@apollo/client';
 
 import queries from '../graphql/queries';
-import { Ferment } from '../types/fermentation';
-import { Recipe } from '../types/recipe';
+import { Ferment, Recipe } from '../types';
 
 type GetFermentQuery = {
   ferment: Ferment;

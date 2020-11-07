@@ -7,7 +7,7 @@ import {
   VictoryTheme,
 } from 'victory-native';
 
-import { Hop, HopAddition } from '../../../types/ingredients';
+import { Hop, HopAddition } from '../../../types';
 import Platform from '../../../utils/platform';
 
 type DataPoint = {

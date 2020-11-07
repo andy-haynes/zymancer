@@ -3,7 +3,7 @@ import React from 'react';
 import { View } from 'react-native';
 
 import { icons } from '../../images';
-import { Recipe } from '../../types/recipe';
+import { Recipe } from '../../types';
 import Fermentables from './fermentables/fermentables';
 import Hops from './hops/hops';
 

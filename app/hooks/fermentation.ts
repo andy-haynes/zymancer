@@ -1,4 +1,4 @@
-import { Ferment } from '../types/fermentation';
+import { Ferment } from '../types';
 import { useFermentQuery, useFermentsQuery } from './queries';
 
 type QueryResponse = {

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { IngredientType } from '../../../constants/recipe';
-import { Ingredient } from '../../../types/ingredients';
+import { Fermentable, Hop, Yeast } from '../../../types';
 import { icons } from '../../../images';
 import { Image, Modal } from '../../core';
 
 type Props = {
   children: React.ReactNode;
-  ingredient: Ingredient|null;
+  ingredient: Fermentable|Hop|Yeast|null;
   ingredientType: IngredientType;
   name: string;
   unselectIngredient: () => void;

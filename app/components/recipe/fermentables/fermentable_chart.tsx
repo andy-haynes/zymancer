@@ -1,7 +1,7 @@
 import React from 'react';
 import { VictoryPie } from 'victory-native';
 
-import { Fermentable } from '../../../types/ingredients';
+import { Fermentable } from '../../../types';
 
 type Props = {
   fermentables: Fermentable[];
@@ -22,7 +22,7 @@ export default function FermentableChart({ fermentables }: Props) {
       colorScale={fermentables.map((fermentable) => fermentable.color)}
       data={fermentables.map((fermentable, i) => ({
         x: i,
-        y: fermentable.weight.value,
+        y: fermentable?.weight?.value,
       }))}
       innerRadius={60}
       labels={() => ''}
