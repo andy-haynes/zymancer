@@ -19,7 +19,7 @@ export type BrewInstance = {
   id?: Maybe<Scalars['String']>;
   dateRange?: Maybe<DateRange>;
   ferment?: Maybe<Ferment>;
-  notes?: Maybe<Array<Maybe<Note>>>;
+  notes?: Maybe<Array<Note>>;
   recipe?: Maybe<Recipe>;
 };
 
@@ -33,7 +33,7 @@ export type EquipmentProfile = {
   __typename?: 'EquipmentProfile';
   id: Scalars['String'];
   name: Scalars['String'];
-  losses?: Maybe<Array<Maybe<Loss>>>;
+  losses?: Maybe<Array<Loss>>;
 };
 
 export type Ferment = {
@@ -43,9 +43,9 @@ export type Ferment = {
   brewDay?: Maybe<BrewInstance>;
   brewInstance?: Maybe<BrewInstance>;
   dateRange: DateRange;
-  gravityDeltas?: Maybe<Array<Maybe<GravityDelta>>>;
-  notes?: Maybe<Array<Maybe<Note>>>;
-  vessels?: Maybe<Array<Maybe<FermentationVessel>>>;
+  gravityDeltas?: Maybe<Array<GravityDelta>>;
+  notes?: Maybe<Array<Note>>;
+  vessels?: Maybe<Array<FermentationVessel>>;
 };
 
 export type Fermentable = {
@@ -55,14 +55,14 @@ export type Fermentable = {
   lovibond?: Maybe<Scalars['Int']>;
   name: Scalars['String'];
   srm?: Maybe<Scalars['Float']>;
-  weight?: Maybe<Measurement>;
+  weight: Measurement;
 };
 
 export type FermentationVessel = {
   __typename?: 'FermentationVessel';
   id: Scalars['String'];
   capacity: Measurement;
-  ferments?: Maybe<Array<Maybe<Ferment>>>;
+  ferments?: Maybe<Array<Ferment>>;
   name: Scalars['String'];
   type: Scalars['String'];
 };
@@ -79,8 +79,8 @@ export type Hop = {
   name: Scalars['String'];
   alpha?: Maybe<Scalars['Float']>;
   beta?: Maybe<Scalars['Float']>;
-  additions?: Maybe<Array<Maybe<HopAddition>>>;
-  aromaticProfile?: Maybe<Array<Maybe<Scalars['String']>>>;
+  additions?: Maybe<Array<HopAddition>>;
+  aromaticProfile?: Maybe<Array<Scalars['String']>>;
   form?: Maybe<Scalars['String']>;
 };
 
@@ -95,24 +95,24 @@ export type HopAddition = {
 
 export type IngredientResults = {
   __typename?: 'IngredientResults';
-  fermentables?: Maybe<Array<Maybe<Fermentable>>>;
-  hops?: Maybe<Array<Maybe<Hop>>>;
-  yeast?: Maybe<Array<Maybe<Yeast>>>;
+  fermentables: Array<Fermentable>;
+  hops: Array<Hop>;
+  yeast: Array<Yeast>;
 };
 
 
 export type IngredientResultsFermentablesArgs = {
-  ingredientSearch?: Maybe<IngredientSearchInput>;
+  ingredientSearch: Maybe<IngredientSearchInput>;
 };
 
 
 export type IngredientResultsHopsArgs = {
-  ingredientSearch?: Maybe<IngredientSearchInput>;
+  ingredientSearch: Maybe<IngredientSearchInput>;
 };
 
 
 export type IngredientResultsYeastArgs = {
-  ingredientSearch?: Maybe<IngredientSearchInput>;
+  ingredientSearch: Maybe<IngredientSearchInput>;
 };
 
 export type IngredientSearchInput = {
@@ -140,7 +140,7 @@ export type MashSchedule = {
   __typename?: 'MashSchedule';
   efficiency?: Maybe<Scalars['Float']>;
   method?: Maybe<Scalars['String']>;
-  rests?: Maybe<Array<Maybe<MashRest>>>;
+  rests?: Maybe<Array<MashRest>>;
   sparge?: Maybe<Scalars['String']>;
 };
 
@@ -168,12 +168,12 @@ export type Recipe = {
   id: Scalars['String'];
   name: Scalars['String'];
   style?: Maybe<RecipeStyle>;
-  brewInstances?: Maybe<Array<Maybe<BrewInstance>>>;
-  fermentables?: Maybe<Array<Maybe<Fermentable>>>;
-  hops?: Maybe<Array<Maybe<Hop>>>;
-  yeast?: Maybe<Array<Maybe<Yeast>>>;
+  brewInstances?: Maybe<Array<BrewInstance>>;
+  fermentables?: Maybe<Array<Fermentable>>;
+  hops?: Maybe<Array<Hop>>;
+  yeast?: Maybe<Array<Yeast>>;
   mash?: Maybe<MashProfile>;
-  ferments?: Maybe<Array<Maybe<Ferment>>>;
+  ferments?: Maybe<Array<Ferment>>;
 };
 
 export type RecipeStyle = {
@@ -185,7 +185,7 @@ export type RecipeStyle = {
   characteristicIngredients?: Maybe<Scalars['String']>;
   code?: Maybe<Scalars['String']>;
   comments?: Maybe<Scalars['String']>;
-  commercialExamples?: Maybe<Array<Maybe<Scalars['String']>>>;
+  commercialExamples?: Maybe<Array<Scalars['String']>>;
   FG?: Maybe<Scalars['String']>;
   flavor?: Maybe<Scalars['String']>;
   history?: Maybe<Scalars['String']>;
@@ -196,7 +196,7 @@ export type RecipeStyle = {
   overallImpression?: Maybe<Scalars['String']>;
   SRM?: Maybe<Scalars['String']>;
   styleComparison?: Maybe<Scalars['String']>;
-  tags?: Maybe<Array<Maybe<Scalars['String']>>>;
+  tags?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Yeast = {
@@ -207,47 +207,47 @@ export type Yeast = {
   pitchTemp?: Maybe<Measurement>;
   quantity?: Maybe<Scalars['Int']>;
   targetCellCount?: Maybe<Scalars['Int']>;
-  styles?: Maybe<Array<Maybe<Scalars['String']>>>;
+  styles?: Maybe<Array<Scalars['String']>>;
 };
 
 export type Query = {
   __typename?: 'Query';
   brewDay?: Maybe<BrewInstance>;
-  brewDays?: Maybe<Array<Maybe<BrewInstance>>>;
+  brewDays?: Maybe<Array<BrewInstance>>;
   ferment?: Maybe<Ferment>;
-  ferments?: Maybe<Array<Maybe<Ferment>>>;
+  ferments?: Maybe<Array<Ferment>>;
   fermentationVessel?: Maybe<FermentationVessel>;
-  fermentationVessels?: Maybe<Array<Maybe<FermentationVessel>>>;
+  fermentationVessels?: Maybe<Array<FermentationVessel>>;
   ingredients?: Maybe<IngredientResults>;
   recipe?: Maybe<Recipe>;
-  recipes?: Maybe<Array<Maybe<Recipe>>>;
+  recipes?: Maybe<Array<Recipe>>;
   style?: Maybe<RecipeStyle>;
-  styles?: Maybe<Array<Maybe<RecipeStyle>>>;
+  styles?: Maybe<Array<RecipeStyle>>;
 };
 
 
 export type QueryBrewDayArgs = {
-  brewInstanceId?: Maybe<Scalars['String']>;
+  brewInstanceId: Maybe<Scalars['String']>;
 };
 
 
 export type QueryFermentArgs = {
-  fermentId?: Maybe<Scalars['String']>;
+  fermentId: Maybe<Scalars['String']>;
 };
 
 
 export type QueryFermentationVesselArgs = {
-  vesselId?: Maybe<Scalars['String']>;
+  vesselId: Maybe<Scalars['String']>;
 };
 
 
 export type QueryRecipeArgs = {
-  recipeId?: Maybe<Scalars['String']>;
+  recipeId: Maybe<Scalars['String']>;
 };
 
 
 export type QueryStyleArgs = {
-  styleId?: Maybe<Scalars['String']>;
+  styleId: Maybe<Scalars['String']>;
 };
 
 export enum CacheControlScope {
