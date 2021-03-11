@@ -28,7 +28,10 @@ const routeMap: Route[] = [{
   position: 0,
   title: 'fermentables',
   render: (recipe: Recipe) => (
-    <Fermentables fermentables={recipe.fermentables} />
+    <Fermentables
+      fermentables={recipe.fermentables || []}
+      targetVolume={recipe.targetVolume}
+    />
   ),
 }, {
   image: icons.hop,
@@ -36,7 +39,7 @@ const routeMap: Route[] = [{
   position: 1,
   title: 'hops',
   render: (recipe: Recipe) => (
-   <Hops hops={recipe.hops} />
+   <Hops hops={recipe.hops || []} />
   ),
 }, {
   image: icons.mash,

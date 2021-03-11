@@ -23,6 +23,10 @@ export default gql`
           value
         }
       }
+      targetVolume {
+        unit
+        value
+      }
     }
   }
 `;

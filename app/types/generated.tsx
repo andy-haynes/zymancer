@@ -95,9 +95,9 @@ export type HopAddition = {
 
 export type IngredientResults = {
   __typename?: 'IngredientResults';
-  fermentables: Array<Fermentable>;
-  hops: Array<Hop>;
-  yeast: Array<Yeast>;
+  fermentables?: Maybe<Array<Fermentable>>;
+  hops?: Maybe<Array<Hop>>;
+  yeast?: Maybe<Array<Yeast>>;
 };
 
 
@@ -174,6 +174,7 @@ export type Recipe = {
   yeast?: Maybe<Array<Yeast>>;
   mash?: Maybe<MashProfile>;
   ferments?: Maybe<Array<Ferment>>;
+  targetVolume?: Maybe<Measurement>;
 };
 
 export type RecipeStyle = {

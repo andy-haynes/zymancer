@@ -804,19 +804,15 @@
               }
             ],
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "LIST",
+                "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Fermentable",
-                    "ofType": null
-                  }
+                  "kind": "OBJECT",
+                  "name": "Fermentable",
+                  "ofType": null
                 }
               }
             },
@@ -839,19 +835,15 @@
               }
             ],
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "LIST",
+                "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Hop",
-                    "ofType": null
-                  }
+                  "kind": "OBJECT",
+                  "name": "Hop",
+                  "ofType": null
                 }
               }
             },
@@ -874,19 +866,15 @@
               }
             ],
             "type": {
-              "kind": "NON_NULL",
+              "kind": "LIST",
               "name": null,
               "ofType": {
-                "kind": "LIST",
+                "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "Yeast",
-                    "ofType": null
-                  }
+                  "kind": "OBJECT",
+                  "name": "Yeast",
+                  "ofType": null
                 }
               }
             },
@@ -1390,6 +1378,18 @@
                   "ofType": null
                 }
               }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "targetVolume",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Measurement",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
