@@ -8,9 +8,10 @@ import styles from './styles/fermentable_details.style';
 
 type Props = {
   fermentable: Fermentable;
+  fermentableColor: string;
 };
 
-export default function FermentableDetails({ fermentable }: Props) {
+export default function FermentableDetails({ fermentable, fermentableColor }: Props) {
   return (
     <Column style={styles.detailContainer}>
       <Row style={styles.detailRow}>
@@ -30,7 +31,7 @@ export default function FermentableDetails({ fermentable }: Props) {
             <View
               style={[
                 styles.fermentableColor,
-                { backgroundColor: fermentable.color },
+                (fermentableColor ? { backgroundColor: fermentableColor } : {}),
               ]}
             />
           </FermentableDetail>

@@ -5,6 +5,7 @@ import { Fermentable } from '../../../types';
 
 type Props = {
   fermentables: Fermentable[];
+  getFermentableColor: (fermentable: Fermentable) => string;
 };
 
 type DataPoint = {
@@ -16,10 +17,10 @@ type ChartElement = {
   datum: DataPoint;
 };
 
-export default function FermentableChart({ fermentables }: Props) {
+export default function FermentableChart({ fermentables, getFermentableColor }: Props) {
   return (
     <VictoryPie
-      colorScale={fermentables.map((fermentable) => fermentable.color)}
+      colorScale={fermentables.map(getFermentableColor)}
       data={fermentables.map((fermentable, i) => ({
         x: i,
         y: fermentable?.weight?.value,

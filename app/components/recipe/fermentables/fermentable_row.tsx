@@ -7,14 +7,15 @@ import styles from './styles/fermentable_row.style';
 
 type Props = {
   fermentable: Fermentable;
+  fermentableColor: string;
   selectFermentable: () => void;
 };
 
-export default function FermentableRow({ fermentable, selectFermentable }: Props) {
+export default function FermentableRow({ fermentable, fermentableColor, selectFermentable }: Props) {
   return (
     <TouchableRow rowStyle={styles.fermentableRow} onPress={selectFermentable}>
       <Column style={styles.colorBar}>
-        <View style={[styles.color, { backgroundColor: fermentable.color }]} />
+        <View style={[styles.color, { backgroundColor: fermentableColor }]} />
       </Column>
       <Column style={styles.fermentableDetails}>
         <Row>
@@ -37,7 +38,7 @@ export default function FermentableRow({ fermentable, selectFermentable }: Props
           </Column>
           <Column style={styles.quantityUnitContainer}>
             <Text>
-              {fermentable.weight.unit.shortName}
+              {fermentable.weight.unit}
             </Text>
           </Column>
         </Row>
