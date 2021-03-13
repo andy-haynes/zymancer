@@ -1,11 +1,11 @@
 import moment from 'moment';
 import React from 'react';
 import { Text } from 'react-native';
+import  { Recipe } from 'zymath';
 
 import { ScreenName } from '../../constants/navigation';
 import { useNavigator } from '../../hooks/navigation';
 import { Column, TouchableRow } from '../core';
-import { Recipe } from '../../types';
 import styles from './styles/recipe_row.style';
 
 type Props = {

@@ -1,4 +1,5 @@
-import { Recipe } from '../types';
+import { Recipe } from 'zymath';
+
 import { useRecipeQuery, useRecipesQuery } from './queries';
 
 type QueryResponse = {

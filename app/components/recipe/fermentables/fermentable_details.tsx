@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
+import  { Fermentable } from 'zymath';
 
-import { Fermentable } from '../../../types';
 import { Column, Row } from '../../core';
 import FermentableDetail from './fermentable_detail';
 import styles from './styles/fermentable_details.style';
@@ -9,9 +9,10 @@ import styles from './styles/fermentable_details.style';
 type Props = {
   fermentable: Fermentable;
   fermentableColor: string;
+  srm: number;
 };
 
-export default function FermentableDetails({ fermentable, fermentableColor }: Props) {
+export default function FermentableDetails({ fermentable, fermentableColor, srm }: Props) {
   return (
     <Column style={styles.detailContainer}>
       <Row style={styles.detailRow}>
@@ -24,7 +25,7 @@ export default function FermentableDetails({ fermentable, fermentableColor }: Pr
       </Row>
       <Row style={styles.detailRow}>
         <Column style={styles.detail}>
-          <FermentableDetail label='SRM' value={fermentable.srm} />
+          <FermentableDetail label='SRM' value={srm} />
         </Column>
         <Column style={styles.detail}>
           <FermentableDetail label='Color'>

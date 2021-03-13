@@ -1,7 +1,6 @@
 import React from 'react';
 import { VictoryPie } from 'victory-native';
-
-import { Fermentable } from '../../../types';
+import  { Fermentable } from 'zymath';
 
 type Props = {
   fermentables: Fermentable[];

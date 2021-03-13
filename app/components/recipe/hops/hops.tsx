@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
+import  { Hop } from 'zymath';
 
-import { Hop } from '../../../types';
 import Container from '../../core/container';
 import HopChart from './hop_chart';
 import HopRow from './hop_row';

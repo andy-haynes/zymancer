@@ -6,8 +6,8 @@ import {
   VictoryPolarAxis,
   VictoryTheme,
 } from 'victory-native';
+import { Hop, HopAddition } from 'zymath';
 
-import { Hop, HopAddition } from '../../../types';
 import Platform from '../../../utils/platform';
 
 type DataPoint = {
@@ -34,7 +34,7 @@ function buildHopDataset(hop: Hop, aromas: string[]): DataPoint[] {
       ...profile,
       [aroma]: _.sumBy(
         hop.additions,
-        (addition: HopAddition) => addition.quantity.value
+        (addition: HopAddition) => addition.quantity?.value || 0
       ),
     }), {}
   );
@@ -50,7 +50,7 @@ function sortHops(hops: Hop[]) {
     hops,
     (hop) => _.sumBy(
       hop.additions,
-      (addition) => addition.utilization
+      (addition) => addition.utilization || 0
     )
   );
 }
@@ -62,7 +62,7 @@ export default function HopChart({ hops }: ChartProps) {
     .flatten()
     .uniq()
     .sortBy()
-    .value();
+    .value() as string[];
 
   return (
     <VictoryChart polar {...theme}>

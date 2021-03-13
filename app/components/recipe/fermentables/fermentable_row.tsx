@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import  { Fermentable } from 'zymath';
 
-import { Fermentable } from '../../../types';
 import { Column, Row, TouchableRow } from '../../core';
 import styles from './styles/fermentable_row.style';
 

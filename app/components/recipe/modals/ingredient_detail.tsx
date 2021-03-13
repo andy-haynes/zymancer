@@ -1,7 +1,7 @@
 import React from 'react';
+import { Fermentable, Hop, Yeast } from 'zymath';
 
 import { IngredientType } from '../../../constants/recipe';
-import { Fermentable, Hop, Yeast } from '../../../types';
 import { icons } from '../../../images';
 import { Image, Modal } from '../../core';
 

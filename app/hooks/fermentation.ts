@@ -1,4 +1,5 @@
-import { Ferment } from '../types';
+import { Ferment } from 'zymath';
+
 import { useFermentQuery, useFermentsQuery } from './queries';
 
 type QueryResponse = {

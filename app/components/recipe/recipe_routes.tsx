@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
+import  { Recipe } from 'zymath';
 
 import { icons } from '../../images';
-import { Recipe } from '../../types';
 import Fermentables from './fermentables/fermentables';
 import Hops from './hops/hops';
 

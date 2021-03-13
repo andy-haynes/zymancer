@@ -1,7 +1,7 @@
 import { QueryResult, useQuery } from '@apollo/client';
+import { Ferment, Recipe } from 'zymath';
 
 import queries from '../graphql/queries';
-import { Ferment, Recipe } from '../types';
 
 type GetFermentQuery = {
   ferment: Ferment;

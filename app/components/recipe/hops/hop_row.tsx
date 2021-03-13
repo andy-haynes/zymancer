@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View } from 'react-native';
+import  { Hop } from 'zymath';
 
-import { Hop } from '../../../types';
 import styles from './styles/hop_row.style';
 
 type Props = {
