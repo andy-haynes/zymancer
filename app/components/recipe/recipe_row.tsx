@@ -3,7 +3,6 @@ import React from 'react';
 import { Text } from 'react-native';
 import  { Recipe } from 'zymath';
 
-import { ScreenName } from '../../constants/navigation';
 import { useNavigator } from '../../hooks/navigation';
 import { Column, TouchableRow } from '../core';
 import styles from './styles/recipe_row.style';
@@ -12,13 +11,12 @@ type Props = {
   recipe: Recipe;
 };
 
-export default function Recipes({ recipe }: Props) {
-  const { navigateToScreen } = useNavigator();
+export default function RecipeRow({ recipe }: Props) {
+  const { navigateToRecipe } = useNavigator();
 
   return (
     <TouchableRow
-      key={recipe.name}
-      onPress={() => navigateToScreen(ScreenName.Recipe, { recipeId: recipe.id })}
+      onPress={() => navigateToRecipe({ recipeId: recipe.id })}
       rowStyle={styles.recipeRow}
     >
       <Column>
