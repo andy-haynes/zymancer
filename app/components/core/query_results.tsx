@@ -37,9 +37,11 @@ export default function QueryResults<T>({
 
   if (!data) {
     return (
-      <Text>
-        no data
-      </Text>
+      <View style={styles.emptyContainer}>
+        <Text style={styles.emptyText}>
+          No data returned
+        </Text>
+      </View>
     );
   }
 

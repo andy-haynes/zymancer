@@ -3,6 +3,13 @@ import { StyleSheet } from 'react-native';
 import { colors, font } from '../../../theme';
 
 export default StyleSheet.create({
+  emptyContainer: {
+    height: 36,
+  },
+  emptyText: {
+    color: colors.grayDark,
+    fontSize: font.size.medium,
+  },
   errorContainer: {
     backgroundColor: colors.red,
     height: 36,
