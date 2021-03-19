@@ -1,7 +1,7 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 
-import { useRecipe } from '../../hooks/recipe';
+import { QueryResults } from '../core';
+import { GetRecipeQuery, useRecipeQuery } from '../../hooks/queries';
 import RecipeTabs from './recipe_tabs';
 
 type Props = {
@@ -9,30 +9,13 @@ type Props = {
 };
 
 export default function Recipe({ recipeId }: Props) {
-  const { loading, error, recipe } = useRecipe(recipeId);
-
-  if (loading) {
-    return (
-      <Text>
-        Loading...
-      </Text>
-    );
-  }
-
-  if (error) {
-    console.warn(error);
-    return (
-      <Text>Could not load recipe</Text>
-    );
-  }
-
-  if (!recipe) {
-    return (
-      <View />
-    );
-  }
-
+  const recipeQuery = useRecipeQuery(recipeId);
   return (
-    <RecipeTabs recipe={recipe} />
+    <QueryResults
+      query={recipeQuery}
+      render={({ recipe }: GetRecipeQuery) => (
+        <RecipeTabs recipe={recipe} />
+      )}
+    />
   );
 }
