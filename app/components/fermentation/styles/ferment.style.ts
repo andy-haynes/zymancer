@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native';
 import { font } from '../../../theme';
 
 export default StyleSheet.create({
-  fermentDate: {
+  brewInstance: {
   },
-  fermentDateText: {
+  brewInstanceText: {
   },
   recipeName: {
   },

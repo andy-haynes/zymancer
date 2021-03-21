@@ -1,33 +1,32 @@
 import React from 'react';
-import { Text } from 'react-native';
+import moment from 'moment';
 
-import { useFermentList } from '../../hooks/fermentation';
-import { Container } from '../core';
-import FermentRow from './ferment_row';
+import { ListFermentsQuery, useFermentsQuery } from '../../hooks/queries';
+import { useNavigator } from '../../hooks/navigation';
+import { Container, ItemRow, QueryResults } from '../core';
 
 export default function Fermentation() {
-  const { loading, error, ferments } = useFermentList();
+  const fermentsQuery = useFermentsQuery();
+  const { navigateToFerment } = useNavigator();
+
   return (
     <Container>
-      <Text>Actively Fermenting</Text>
-      {loading && (
-        <Text>
-          Loading...
-        </Text>
-      )}
-
-      {error && (
-        <Text>
-          Failed to load ferments
-        </Text>
-      )}
-
-      {(ferments || []).map((ferment) => (
-        <FermentRow
-          key={ferment.id}
-          ferment={ferment}
-        />
-      ))}
+      <QueryResults
+        query={fermentsQuery}
+        render={({ ferments }: ListFermentsQuery) => (
+          <>
+            {ferments.map((ferment) => (
+              <ItemRow
+                date={moment(ferment.dateRange.startDate).format('D MMM YYYY')}
+                dateLabel={'Fermentation started'}
+                key={ferment.id}
+                name={ferment.recipe.name}
+                navigateToItem={() => navigateToFerment({ fermentId: ferment.id })}
+              />
+            ))}
+          </>
+        )}
+      />
     </Container>
   );
 }
