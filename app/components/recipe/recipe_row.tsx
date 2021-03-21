@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React from 'react';
-import { Text } from 'react-native';
-import  { Recipe } from 'zymath';
+import { Text, View } from 'react-native';
+import  { calculateSrm, getSrmColor, Recipe } from 'zymath';
 
 import { useNavigator } from '../../hooks/navigation';
 import { Column, TouchableRow } from '../core';
@@ -13,12 +13,22 @@ type Props = {
 
 export default function RecipeRow({ recipe }: Props) {
   const { navigateToRecipe } = useNavigator();
+  const recipeSrm = calculateSrm({
+    fermentables: recipe.fermentables,
+    targetVolume: recipe.targetVolume,
+  });
 
   return (
     <TouchableRow
       onPress={() => navigateToRecipe({ recipeId: recipe.id })}
       rowStyle={styles.recipeRow}
     >
+      <View
+        style={[
+          styles.recipeColor,
+          { backgroundColor: getSrmColor(recipeSrm) },
+        ]}
+      />
       <Column>
         <Column style={styles.recipeName}>
           <Text style={styles.recipeNameText}>

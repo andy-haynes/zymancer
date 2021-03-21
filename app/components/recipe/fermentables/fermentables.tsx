@@ -1,14 +1,13 @@
-import _ from 'lodash';
 import React, { useState } from 'react';
 import { ScrollView, View } from 'react-native';
 import {
-  calculateRecipeSRM,
+  calculateSrm,
   Fermentable,
+  getSrmColor,
   VolumeMeasurement,
 } from 'zymath';
 
 import { IngredientType } from '../../../constants/recipe';
-import SrmRgb from '../../../constants/srm_rgb';
 import { Column } from '../../core';
 import IngredientDetailModal from '../modals/ingredient_detail';
 import FermentableChart from './fermentable_chart';
@@ -26,16 +25,14 @@ export default function Fermentables(props: Props) {
   const fermentables: Fermentable[] = [...props.fermentables].reverse();
 
   function getFermentableSrm(fermentable: Fermentable): number {
-    const srm = _.round(calculateRecipeSRM({
+    return calculateSrm({
       fermentables: [fermentable],
       targetVolume: props.targetVolume,
-    }));
-
-    return _.min([srm, 40]) || 0;
+    });
   }
 
   function getFermentableColor(fermentable: Fermentable): string {
-    return SrmRgb[getFermentableSrm(fermentable)];
+    return getSrmColor(getFermentableSrm(fermentable));
   }
 
   return (

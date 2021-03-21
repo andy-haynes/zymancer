@@ -3,6 +3,11 @@ import { StyleSheet } from 'react-native';
 import { colors, font } from '../../../theme';
 
 export default StyleSheet.create({
+  recipeColor: {
+    width: 16,
+    marginHorizontal: 8,
+    marginVertical: 2,
+  },
   recipeLastBrewed: {
   },
   recipeLastBrewedText: {
