@@ -23,6 +23,25 @@ export default gql`
           value
         }
       }
+      hops {
+        id
+        name
+        aromaticProfile
+        alpha
+        beta
+        additions {
+          form
+          quantity {
+            unit
+            value
+          }
+          time {
+            unit
+            value
+          }
+          type
+        }
+      }
       targetVolume {
         unit
         value

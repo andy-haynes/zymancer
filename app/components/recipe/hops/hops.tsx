@@ -20,7 +20,7 @@ export default function Hops(props: Props) {
       </View>
       {hops.map((hop) => (
         <HopRow
-          key={hop.name}
+          key={hop.id}
           hop={hop}
         />
       ))}
