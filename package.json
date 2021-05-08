@@ -33,7 +33,7 @@
     "react-native-vector-icons": "^6.6.0",
     "rxjs": "^7.0.0-beta.0",
     "victory-native": "^35.0.1",
-    "zymath": "^0.0.3"
+    "zymath": "latest"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
