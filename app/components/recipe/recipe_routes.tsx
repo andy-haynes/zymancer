@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { View } from 'react-native';
-import  { Recipe } from 'zymath';
+import  { calculatePotentialGravity, Recipe } from 'zymath';
 
 import { icons } from '../../images';
 import Fermentables from './fermentables/fermentables';
@@ -39,7 +39,14 @@ const routeMap: Route[] = [{
   position: 1,
   title: 'hops',
   render: (recipe: Recipe) => (
-   <Hops hops={recipe.hops || []} />
+   <Hops
+     gravity={calculatePotentialGravity({
+       efficiency: recipe.mash.schedule.efficiency || 1,
+       fermentables: recipe.fermentables,
+       targetVolume: recipe.targetVolume,
+     })}
+     hops={recipe.hops || []}
+   />
   ),
 }, {
   image: icons.mash,

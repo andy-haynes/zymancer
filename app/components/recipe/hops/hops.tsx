@@ -8,15 +8,15 @@ import HopRow from './hop_row';
 import styles from './styles/hops.style';
 
 type Props = {
+  gravity: number;
   hops: Hop[];
 };
 
-export default function Hops(props: Props) {
-  const hops: Hop[] = props.hops || [];
+export default function Hops({ gravity, hops }: Props) {
   return (
     <Container>
       <View style={styles.chart}>
-        <HopChart hops={hops} />
+        <HopChart gravity={gravity} hops={hops} />
       </View>
       {hops.map((hop) => (
         <HopRow

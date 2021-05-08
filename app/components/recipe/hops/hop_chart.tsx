@@ -6,7 +6,13 @@ import {
   VictoryPolarAxis,
   VictoryTheme,
 } from 'victory-native';
-import { Hop, HopAddition } from 'zymath';
+import {
+  calculateUtilization,
+  convertToUnit,
+  Hop,
+  HopAdditionType,
+  WeightUnit,
+} from 'zymath';
 
 import Platform from '../../../utils/platform';
 
@@ -16,8 +22,27 @@ type DataPoint = {
 };
 
 type ChartProps = {
+  gravity?: number;
   hops: Hop[];
 };
+
+function calculateHopUtilization(hop: Hop, gravity: number) {
+  return hop.additions.reduce((sum, addition) => {
+      if (!addition.time) {
+        return sum;
+      }
+
+      if (addition.type === HopAdditionType.DryHop) {
+        return sum;
+      }
+
+      return sum + calculateUtilization({
+        addition,
+        gravity,
+      });
+    }, 0
+  );
+}
 
 function generateGreenShade(index: number, total: number, alpha: number) {
   const maxGreen = 255;
@@ -27,17 +52,20 @@ function generateGreenShade(index: number, total: number, alpha: number) {
   return `rgba(0, ${_.round(green)}, 0, ${alpha})`;
 }
 
-function buildHopDataset(hop: Hop, aromas: string[]): DataPoint[] {
-  const hopAromas: { [key: string]: number } = _.reduce(
-    hop.aromaticProfile,
-    (profile, aroma) => ({
-      ...profile,
-      [aroma]: _.sumBy(
-        hop.additions,
-        (addition: HopAddition) => addition.quantity?.value || 0
-      ),
-    }), {}
-  );
+function buildHopDataset({ hop, aromas, gravity }: {
+  hop: Hop,
+  aromas: string[],
+  gravity: number
+}): DataPoint[] {
+  const hopUtilization = calculateHopUtilization(hop, gravity);
+  const hopWeightGrams = hop.additions.reduce((sum, addition) => {
+    return sum + convertToUnit({ measurement: addition.quantity, unit: WeightUnit.Gram }).value;
+  }, 0);
+
+  const hopAromas: { [key: string]: number } = hop.aromaticProfile.reduce((profile, aroma) => ({
+    ...profile,
+    [aroma]: hopUtilization * hopWeightGrams,
+  }), {});
 
   return _.map(aromas, (aroma) => ({
     x: aroma,
@@ -45,17 +73,14 @@ function buildHopDataset(hop: Hop, aromas: string[]): DataPoint[] {
   }));
 }
 
-function sortHops(hops: Hop[]) {
+function sortHops(gravity: number, hops: Hop[]) {
   return _.sortBy(
     hops,
-    (hop) => _.sumBy(
-      hop.additions,
-      (addition) => addition.utilization || 0
-    )
+    (hop) => calculateHopUtilization(hop, gravity)
   );
 }
 
-export default function HopChart({ hops }: ChartProps) {
+export default function HopChart({ gravity = 1, hops }: ChartProps) {
   const theme = Platform.isAndroid() ? { theme: VictoryTheme.material } : {};
   const aromas = _.chain(hops)
     .map('aromaticProfile')
@@ -79,9 +104,9 @@ export default function HopChart({ hops }: ChartProps) {
         labelPlacement='vertical'
         {...theme}
       />
-      {_.map(sortHops(hops), (hop, i) => (
+      {_.map(sortHops(gravity, hops), (hop, i) => (
         <VictoryLine
-          data={buildHopDataset(hop, aromas)}
+          data={buildHopDataset({ hop, aromas, gravity })}
           key={hop.name}
           style={{
             data: {

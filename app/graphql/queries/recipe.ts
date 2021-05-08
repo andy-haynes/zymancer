@@ -42,6 +42,11 @@ export default gql`
           type
         }
       }
+      mash {
+        schedule {
+          efficiency
+        }
+      }
       targetVolume {
         unit
         value
