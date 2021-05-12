@@ -45,6 +45,19 @@ export default gql`
       mash {
         schedule {
           efficiency
+          method
+          sparge
+          rests {
+            type
+            time {
+              unit
+              value
+            }
+            temperature {
+              unit
+              value
+            }
+          }
         }
       }
       targetVolume {

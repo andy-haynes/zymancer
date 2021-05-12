@@ -6,6 +6,7 @@ import  { calculatePotentialGravity, Recipe } from 'zymath';
 import { icons } from '../../images';
 import Fermentables from './fermentables/fermentables';
 import Hops from './hops/hops';
+import Mash from './mash';
 
 export enum RecipeRoute {
   Fermentables = 'fermentables',
@@ -53,8 +54,10 @@ const routeMap: Route[] = [{
   key: RecipeRoute.Mash,
   position: 2,
   title: 'mash',
-  render: () => (
-   <View />
+  render: (recipe: Recipe) => (
+   <Mash
+     schedule={recipe.mash.schedule}
+   />
   ),
 }, {
   image: icons.yeast,
