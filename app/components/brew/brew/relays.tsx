@@ -2,9 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 
 import { Relay } from '../../../types/brew_server';
-import { Row } from '../../core';
+import { DetailSquare, Row } from '../../core';
 import styles from './styles/relays';
-import DetailSquare from './detail_square';
 
 export default function Brew({ relays }: { relays: Relay[] }) {
   return (

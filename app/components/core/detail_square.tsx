@@ -1,8 +1,9 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-import { ComponentStyle } from '../../../types/react';
-import { Column, Row } from '../../core';
+import { ComponentStyle } from '../../types/react';
+import Column from './column';
+import Row from './row';
 import styles from './styles/detail_square';
 
 type Props = {

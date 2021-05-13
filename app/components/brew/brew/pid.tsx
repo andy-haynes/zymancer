@@ -3,8 +3,7 @@ import React from 'react';
 
 import Colors from '../../../theme/colors';
 import { PID } from '../../../types/brew_server';
-import { Row } from '../../core';
-import DetailSquare from './detail_square';
+import { DetailSquare, Row } from '../../core';
 import styles from './styles/pid';
 
 const TEMPERATURE_THRESHOLD_LOW = 0.005;
