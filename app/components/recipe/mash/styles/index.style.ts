@@ -12,5 +12,7 @@ export default StyleSheet.create({
     fontSize: font.size.large,
   },
   rests: {
+    marginHorizontal: 12,
+    marginVertical: 16,
   },
 });

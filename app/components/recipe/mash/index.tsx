@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { MashSchedule } from 'zymath';
 
-import { Column, Container, Row } from '../../core';
+import { Column, Container, DetailSquare, Row } from '../../core';
 import styles from './styles/index.style';
 
 type Props = {
@@ -13,42 +13,9 @@ export default function Fermentables({ schedule }: Props) {
   return (
     <Container>
       <Row>
-        <Column>
-          <Row>
-            <Text style={styles.propertyHeader}>
-              Method
-            </Text>
-          </Row>
-          <Row>
-            <Text style={styles.propertyValue}>
-              {schedule.method}
-            </Text>
-          </Row>
-        </Column>
-        <Column>
-          <Row>
-            <Text style={styles.propertyHeader}>
-              Sparge
-            </Text>
-          </Row>
-          <Row>
-            <Text style={styles.propertyValue}>
-              {schedule.sparge}
-            </Text>
-          </Row>
-        </Column>
-        <Column>
-          <Row>
-            <Text style={styles.propertyHeader}>
-              Efficiency
-            </Text>
-          </Row>
-          <Row>
-            <Text style={styles.propertyValue}>
-              {schedule.efficiency}
-            </Text>
-          </Row>
-        </Column>
+        <DetailSquare name={'method'} value={schedule.method} />
+        <DetailSquare name={'sparge'} value={schedule.sparge} />
+        <DetailSquare name={'efficiency'} value={schedule.efficiency} />
       </Row>
       <Row>
         <Column>
