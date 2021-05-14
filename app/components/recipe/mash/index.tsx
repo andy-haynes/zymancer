@@ -9,7 +9,7 @@ type Props = {
   schedule: MashSchedule;
 };
 
-export default function Fermentables({ schedule }: Props) {
+export default function Mash({ schedule }: Props) {
   return (
     <Container>
       <Row>
