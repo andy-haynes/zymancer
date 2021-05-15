@@ -60,6 +60,18 @@ export default gql`
           }
         }
       }
+      yeast {
+        name
+        code
+        pitchRate
+        pitchTemp {
+          unit
+          value
+        }
+        quantity
+        targetCellCount
+        styles
+      }
       targetVolume {
         unit
         value

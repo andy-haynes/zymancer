@@ -1,18 +1,18 @@
 import _ from 'lodash';
 import React from 'react';
-import { View } from 'react-native';
 import  { calculatePotentialGravity, Recipe } from 'zymath';
 
 import { icons } from '../../images';
 import Fermentables from './fermentables/fermentables';
+import Fermentation from './fermentation';
 import Hops from './hops/hops';
 import Mash from './mash';
 
 export enum RecipeRoute {
   Fermentables = 'fermentables',
+  Fermentation = 'fermentation',
   Hops = 'hops',
   Mash = 'mash',
-  Fermentation = 'fermentation',
 }
 
 type Route = {
@@ -65,7 +65,7 @@ const routeMap: Route[] = [{
   position: 3,
   title: 'fermentation',
   render: (recipe: Recipe) => (
-    <View />
+    <Fermentation yeast={recipe.yeast} />
   ),
 }];
 
